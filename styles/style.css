@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+:root{
+  --primary-color: red;
+  --secondary-color: black;
+  --background-color: yellow;
+  --text-color: white;
+  --font-family: 'Arial', sans-serif;
+}
