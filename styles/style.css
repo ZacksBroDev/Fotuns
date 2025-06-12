@@ -1,3 +1,4 @@
+/* General reset */
 :root {
   --red: #c62828;
   --red-alt: #b71c1c;
@@ -12,6 +13,7 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* General styles */
 body {
   background-color: var(--white);
   color: var(--black);
@@ -19,7 +21,6 @@ body {
 }
 #home {
   background-color: gray;
-
   background-size: cover;
   background-position: center;
 }
@@ -32,6 +33,7 @@ header {
   align-items: center;
 }
 
+/* NavBar */
 nav a {
   color: var(--white);
   margin-left: 1rem;
@@ -41,7 +43,6 @@ nav a {
 nav a:hover {
   color: var(--red-alt);
 }
-
 .hero {
   background-color: transparent;
   color: var(--white);
@@ -55,24 +56,12 @@ nav a:hover {
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
-  scroll-: translateY(-50%) ease-in-out;
-}
-@keyframes translateY {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-50%);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-
 }
 .title{
   font-size: 4.5rem;
   margin-bottom: 1rem;
 }
+
 
 .btn {
   background-color: var(--yellow);
