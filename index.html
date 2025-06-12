@@ -6,22 +6,36 @@
   <link rel="stylesheet" href="/styles/style.css"/>
   <title>The Futons</title>
 </head>
-<body>
+<body id="home">
   <header>
-    <h1>The Futons</h1>
-    <nav>
-      <a href="/">Home</a>
+    <div class="col1">
+      <img src="/images" alt="The Futons Logo" />
+      <h4>The Futons</h4>
+    </div>
+    <div class="col2">
+      <nav class="nav-links">
+      <a href="/" id="active">Home</a>
       <a href="/pages/shows.html">Shows</a>
       <a href="/pages/contact.html">Contact</a>
-    </nav>
+    </div>
+    <div class="col3">
+      <div class="social-links">
+      <a href="https://instagram.com/" target="_blank"><img src="/assets/icons/insta2.png" id="instagram-icon" alt="Instagram"></a>
+      </div>
+      <div class="login">
+        <img src="/assets/icons/login.png" alt="User Icon">
+      </div>
+    </div>
+    
   </header>
 
   <main>
     <section class="hero">
+      <h1 class="title">The Futons</h1>
       <h2>Lo-fi indie from the living room</h2>
       <a href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP" class="btn">Listen on Spotify</a>
     </section>
-    <section>
+    <section class="login">
       <h2>Log In</h2>
       <p>To subscribe to our newsletter and catch the latest updates</p>
       <form action="/login" method="POST">

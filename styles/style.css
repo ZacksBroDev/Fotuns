@@ -17,9 +17,15 @@ body {
   color: var(--black);
   line-height: 1.6;
 }
+#home {
+  background-color: gray;
+
+  background-size: cover;
+  background-position: center;
+}
 header {
-  background-color: var(--black);
-  color: var(--yellow);
+  background-color: transparent;
+  color: var(--white);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -27,20 +33,45 @@ header {
 }
 
 nav a {
-  color: var(--yellow);
+  color: var(--white);
   margin-left: 1rem;
   text-decoration: none;
   font-weight: bold;
 }
 nav a:hover {
-  color: var(--red);
+  color: var(--red-alt);
 }
 
 .hero {
+  background-color: transparent;
+  color: var(--white);
+  padding: 7rem 2rem;
+  text-align: center;
+}
+.login{
   background-color: var(--red);
   color: var(--white);
-  padding: 4rem 2rem;
-  text-align: center;
+  padding: 4.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  scroll-: translateY(-50%) ease-in-out;
+}
+@keyframes translateY {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+
+}
+.title{
+  font-size: 4.5rem;
+  margin-bottom: 1rem;
 }
 
 .btn {
@@ -51,7 +82,7 @@ nav a:hover {
   display: inline-block;
   text-decoration: none;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 50px;
   transition: background-color 0.3s ease;
 }
 .btn:hover {
@@ -61,14 +92,41 @@ nav a:hover {
 
 section {
   padding: 2rem;
+  
 }
 
 footer {
-  background-color: var(--black);
+  background-color: transparent;
   color: var(--white);
   text-align: center;
   padding: 1rem;
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+header{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.col1{
+  text-align: center;
+}
+.col2{
+  text-align: center;
+}
+.col3{
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+}
+#active{
+  color:var(--red);
+}
+#instagram-icon{
+  width: 24px;
 }
