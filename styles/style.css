@@ -32,6 +32,21 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+footer {
+  background-color: transparent;
+  color: var(--white);
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+header{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  justify-content: space-evenly;
+}
 
 /* NavBar */
 nav a {
@@ -42,6 +57,9 @@ nav a {
 }
 nav a:hover {
   color: var(--red-alt);
+}
+#active{
+  color:var(--red);
 }
 .hero {
   background-color: transparent;
@@ -61,8 +79,24 @@ nav a:hover {
   font-size: 4.5rem;
   margin-bottom: 1rem;
 }
+.col1{
+  text-align: center;
+}
+.col2{
+  text-align: center;
+}
+.col3{
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+}
+#instagram-icon{
+  width: 24px;
+}
 
-
+/* Other */
 .btn {
   background-color: var(--yellow);
   color: var(--black);
@@ -82,40 +116,4 @@ nav a:hover {
 section {
   padding: 2rem;
   
-}
-
-footer {
-  background-color: transparent;
-  color: var(--white);
-  text-align: center;
-  padding: 1rem;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-header{
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.col1{
-  text-align: center;
-}
-.col2{
-  text-align: center;
-}
-.col3{
-  text-align: center;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: row;
-}
-#active{
-  color:var(--red);
-}
-#instagram-icon{
-  width: 24px;
 }
