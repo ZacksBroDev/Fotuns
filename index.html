@@ -6,35 +6,34 @@
   <link rel="stylesheet" href="/styles/style.css"/>
   <title>The Futons</title>
 </head>
-<body id="home">
-  <header>
-    <div class="col1">
-      <img src="/images" alt="The Futons Logo" />
-      <h4>The Futons</h4>
-    </div>
-    <div class="col2">
-      <nav class="nav-links">
-      <a href="/" id="active">Home</a>
-      <a href="/pages/shows.html">Shows</a>
-      <a href="/pages/contact.html">Contact</a>
-    </div>
-    <div class="col3">
-      <div class="social-links">
-      <a href="https://instagram.com/" target="_blank"><img src="/assets/icons/insta2.png" id="instagram-icon" alt="Instagram"></a>
-      </div>
-      <div class="login-header">
-        <img src="/assets/icons/login.png" alt="User Icon">
-      </div>
-    </div>
-    
-  </header>
-
+<body id="home"> 
   <main>
     <section class="hero">
       <h1 class="title">The Futons</h1>
-      <h2>Lo-fi indie from the living room</h2>
+      <h2>3-Piece Furniture Set From Denver, CO</h2>
       <a href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP" class="btn">Listen on Spotify</a>
     </section>
+    <section class="concerts">
+      <h2>Upcoming Concerts</h2>
+      <div class="concert-list">
+        <div class="concert-item">
+          <h3>Denver Music Festival</h3>
+          <p>Date: June 15, 2025</p>
+          <p>Venue: Downtown Denver Park</p>
+        </div>
+        <div class="concert-item">
+          <h3>Summer Vibes Tour</h3>
+          <p>Date: July 20, 2025</p>
+          <p>Venue: Red Rocks Amphitheatre</p>
+        </div>
+        <div class="concert-item">
+          <h3>Indie Night at The Bluebird</h3>
+          <p>Date: August 10, 2025</p>
+          <p>Venue: The Bluebird Theater</p>
+        </div>
+      </div>
+    </section>
+
     <section class="login">
       <h2>Log In</h2>
       <p>To subscribe to our newsletter and catch the latest updates</p>
@@ -48,6 +47,30 @@
     <section id="about">
       <h3>About Us</h3>
       <p>The Futons are an indie band with two releases and a cozy vibe. We make music from where we feel most at home—on the couch.</p>
+      <div class="band-members">
+        <div class="cont">
+          <img class="img" src="/assets/img/poser1.jpeg" alt="">
+          <div class="info">
+            <h3>Main Artist</h3>
+            <p>likes to play guitar and write songs about life.</p>
+          </div>
+        </div>
+        <div class="cont">
+          <img class="img" src="" alt="">
+          <div class="info">
+            <h3>Antonio Tabangay</h3>
+            <p>is a talented bassist who brings the groove to our sound.</p>
+          </div>
+        </div>
+        <div class="cont">
+          <img class="img" src="" alt="">
+          <div class="info">
+            <h3>Kento Yoshikawa</h3>
+            <p>keeps the beat and adds energy to our performances.</p>
+          </div>
+        </div>
+      </div>
+      
     </section>
   </main>
   <section id="gallery">
@@ -57,9 +80,29 @@
       <img src="/" alt="Band in the studio" />
       <img src="/" alt="Band hanging out" />
     </div>
+  </section>
+  <section class="contact-container">
+      <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form" value="Contact Form From Personal Portfolio">
+        <input type="hidden" name="access_key" value="bd3b1db0-a150-4eb9-8c61-27249b4f0d98">
+        <h1 id="title">CONTACT US</h1>
+        <input id="name" type="text" name="name" placeholder="Enter Your Name">
+        <input id="email" type="email" name="email" placeholder="Enter Your Email">
+        <input type="tel" id="phone" name="phone" placeholder="Enter Your Phone Number">
+        <input id="subject" type="text" name="subject" placeholder="Enter Subject">
+        <textarea id="message" name="message" placeholder="Enter Your Message"></textarea>
+        <button id="submit" class="btn">Submit</button>
+      </form>
+      <div class="links">
+        <a id="insta" href="https://www.instagram.com/thefutonsband/"><img src="/assets/icons/insta2.png" alt=""></a>
+        <a id="spotify" href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP"><img src="/assets/icons/spotify.png" alt=""></a>
+      </div>
+  
+  
+
+  </section>
 
   <footer>
-    <p>© 2025 The Futons</p>
+    <p>© 2025 The Futons. Design by ZacksBroDev</p>
   </footer>
 </body>
 </html>
