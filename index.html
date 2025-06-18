@@ -6,7 +6,21 @@
   <link rel="stylesheet" href="/styles/style.css"/>
   <title>The Futons</title>
 </head>
-<body id="home"> 
+<body id="home">
+  <header>
+    <div class="logo">
+      <a href="/"><img src="/assets/img/logo.png" alt="The Futons Logo"/></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a class="navBar" href="#about">About</a></li>
+        <li><a class="navBar" href="#gallery">Gallery</a></li>
+        <li><a class="navBar" href="#contact-form">Contact</a></li>
+        <li><a class="navBar" href="#login">Log In</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <main>
     <section class="hero">
       <h1 class="title">The Futons</h1>
@@ -34,7 +48,7 @@
       </div>
     </section>
 
-    <section class="login">
+    <section id="login">
       <h2>Log In</h2>
       <p>To subscribe to our newsletter and catch the latest updates</p>
       <form action="/login" method="POST">
@@ -72,35 +86,33 @@
       </div>
       
     </section>
-  </main>
-  <section id="gallery">
-    <h3>Gallery</h3>
-    <div class="gallery-container">
-      <img src="/" alt="Band performing live" />
-      <img src="/" alt="Band in the studio" />
-      <img src="/" alt="Band hanging out" />
-    </div>
-  </section>
-  <section class="contact-container">
-      <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form" value="Contact Form From The Futons">
-        <input type="hidden" name="access_key" value="e572cbd3-6837-4195-bc58-8b446a06c8cc">
-        <h1 id="title">CONTACT US</h1>
-        <input id="name" type="text" name="name" placeholder="Enter Your Name">
-        <input id="email" type="email" name="email" placeholder="Enter Your Email">
-        <input type="tel" id="phone" name="phone" placeholder="Enter Your Phone Number">
-        <input id="subject" type="text" name="subject" placeholder="Enter Subject">
-        <textarea id="message" name="message" placeholder="Enter Your Message"></textarea>
-        <button id="submit" class="btn">Submit</button>
-      </form>
-      <div class="links">
-        <a id="insta" href="https://www.instagram.com/thefutonsband/"><img src="/assets/icons/insta2.png" alt=""></a>
-        <a id="spotify" href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP"><img src="/assets/icons/spotify.png" alt=""></a>
+    <section id="gallery">
+      <h3>Gallery</h3>
+      <div class="gallery-container">
+        <img src="/" alt="Band performing live" />
+        <img src="/" alt="Band in the studio" />
+        <img src="/" alt="Band hanging out" />
       </div>
-  
-  
+    </section>
 
-  </section>
 
+    <section class="contact-container">
+        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form" value="Contact Form From The Futons">
+          <input type="hidden" name="access_key" value="e572cbd3-6837-4195-bc58-8b446a06c8cc">
+          <h1 id="title">CONTACT US</h1>
+          <input id="name" type="text" name="name" placeholder="Enter Your Name">
+          <input id="email" type="email" name="email" placeholder="Enter Your Email">
+          <input type="tel" id="phone" name="phone" placeholder="Enter Your Phone Number">
+          <input id="subject" type="text" name="subject" placeholder="Enter Subject">
+          <textarea id="message" name="message" placeholder="Enter Your Message"></textarea>
+          <button id="submit" class="btn">Submit</button>
+        </form>
+        <div class="links">
+          <a id="insta" href="https://www.instagram.com/thefutonsband/"><img src="/assets/icons/insta2.png" alt=""></a>
+          <a id="spotify" href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP"><img src="/assets/icons/spotify.png" alt=""></a>
+        </div>
+    </section>
+  </main>
   <footer>
     <p>© 2025 The Futons. Design by ZacksBroDev</p>
   </footer>
