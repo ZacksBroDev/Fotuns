@@ -42,10 +42,14 @@ footer {
   width: 100%;
 }
 header{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  width: 100%;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
 .hero {
@@ -95,6 +99,49 @@ section {
 }
 
 
+/** NavBar Styles */
+nav {
+  width: 100%;
+  top: 0;
+  padding: 1rem;
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+  list-style-type: none;
+  gap: 20px;
+}
+
+.navBar {
+  display: inline-flex;
+  justify-content: space-between;
+  color: var(--yellow);
+  padding: .5rem;
+  list-style-type: none;
+  text-decoration: none;
+  z-index: 10;
+  border: 2px solid transparent;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+nav li{
+  display: inline;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+nav a:hover{
+  background-color: var(--red);
+  color: var(--yellow);
+  text-decoration: none;
+  border-radius: 25px;
+  border: var(--yellow) 2px solid ;
+}
+.logo{
+  margin-left: 3rem;
+}
+
+
 
 /* Concerts styles */
 .concerts {
@@ -126,7 +173,7 @@ section {
 }
 
 /* Login styles */
-.login{
+#login{
   background-color: rgba(199, 0, 0, 0.8);
   width: 95%;
   margin: auto;
@@ -137,20 +184,21 @@ section {
   font-weight: bold;
   border-radius: 20px;
 }
-.login h2 {
+#login h2 {
   font-size: 2.5rem;
   text-align: center;
 }
-.login input {
+#login input {
   display: block;
+  font-size: 1.2rem;
+  margin: auto;
+  width: 80%;
   background-color: var(--white);
   color: var(--black);
   padding: 0.5rem;
   border: none;
   border-radius: 5px;
-  width: 300px;
   margin-top: 1rem;
-  margin-left: 2rem;
 }
 
 /* About styles */
