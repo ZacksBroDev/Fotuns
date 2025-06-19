@@ -9,24 +9,42 @@
 <body id="home">
   <header>
     <div class="logo">
-      <a href="/"><img src="/assets/img/logo.png" alt="The Futons Logo"/></a>
+      <img src="/assets/icons/Futons_Logo-04.PNG" alt="The Futons Logo"/>
     </div>
     <nav>
       <ul>
         <li><a class="navBar" href="#about">About</a></li>
         <li><a class="navBar" href="#gallery">Gallery</a></li>
         <li><a class="navBar" href="#contact-form">Contact</a></li>
-        <li><a class="navBar" href="#login">Log In</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <h1 class="title">The Futons</h1>
+      <img id="title-img" src="/assets/icons/Futons_Logo-04.PNG" alt="The Futons Logo"/>
       <h2>3-Piece Furniture Set From Denver, CO</h2>
-      <a href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP" class="btn">Listen on Spotify</a>
+      <a href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP" class="title-btn">Listen on Spotify</a>
     </section>
+
+    <section class="music">
+      <h2>Latest Releases</h2>
+      <div class="music-list">
+        <div class="music-item">
+          <h3>Cozy Nights</h3>
+          <p>Release Date: January 10, 2025</p>
+          <p>Genre: Indie Pop</p>
+          <a href="https://open.spotify.com/track/1" class="btn-music">Listen Now</a>
+        </div>
+        <div class="music-item">
+          <h3>Chill Vibes</h3>
+          <p>Release Date: March 5, 2025</p>
+          <p>Genre: Indie Rock</p>
+          <a href="https://open.spotify.com/track/2" class="btn-music">Listen Now</a>
+        </div>
+      </div>
+    </section>
+    
     <section class="concerts">
       <h2>Upcoming Concerts</h2>
       <div class="concert-list">
@@ -46,16 +64,6 @@
           <p>Venue: The Bluebird Theater</p>
         </div>
       </div>
-    </section>
-
-    <section id="login">
-      <h2>Log In</h2>
-      <p>To subscribe to our newsletter and catch the latest updates</p>
-      <form action="/login" method="POST">
-        <input type="text" name="username" placeholder="Username" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit" class="btn">Log In</button>
-      </form>
     </section>
 
     <section id="about">
@@ -96,17 +104,30 @@
     </section>
 
 
-    <section class="contact-container">
-        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form" value="Contact Form From The Futons">
-          <input type="hidden" name="access_key" value="e572cbd3-6837-4195-bc58-8b446a06c8cc">
-          <h1 id="title">CONTACT US</h1>
-          <input id="name" type="text" name="name" placeholder="Enter Your Name">
-          <input id="email" type="email" name="email" placeholder="Enter Your Email">
-          <input type="tel" id="phone" name="phone" placeholder="Enter Your Phone Number">
-          <input id="subject" type="text" name="subject" placeholder="Enter Subject">
-          <textarea id="message" name="message" placeholder="Enter Your Message"></textarea>
-          <button id="submit" class="btn">Submit</button>
-        </form>
+    <section class="contact-container" id="bottom">
+        <div class="login">
+          <h2>Log In</h2>
+          <p>To subscribe to our newsletter and catch the latest updates</p>
+          <form action="/login" method="POST">
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit" class="btn">Login</button>
+          </form>
+        </div>
+
+        <div class="contact">
+          <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form" value="Contact Form From The Futons">
+            <input type="hidden" name="access_key" value="e572cbd3-6837-4195-bc58-8b446a06c8cc">
+            <h1 id="title">CONTACT US</h1>
+            <input id="name" type="text" name="name" placeholder="Name">
+            <input id="email" type="email" name="email" placeholder="Email">
+            <input type="tel" id="phone" name="phone" placeholder="Number">
+            <input id="subject" type="text" name="subject" placeholder="Subject">
+            <textarea id="message" name="message" placeholder="Message"></textarea>
+            <button id="submit" class="btn">Submit</button>
+          </form>
+        </div>
+       
         <div class="links">
           <a id="insta" href="https://www.instagram.com/thefutonsband/"><img src="/assets/icons/insta2.png" alt=""></a>
           <a id="spotify" href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP"><img src="/assets/icons/spotify.png" alt=""></a>
