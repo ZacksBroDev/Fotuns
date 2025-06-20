@@ -49,27 +49,22 @@ header{
   justify-content: space-evenly;
   width: 100%;
   padding: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--blue-alt);
+  opacity: .8;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
-
-.hero {
-  background-color: transparent;
-  color: var(--white);
-  padding: 1rem;;
-  text-align: center;
-}
-
 .title{
   font-size: 4.5rem;
   margin-bottom: 1rem;
 }
-section {
-  background-color: rgba(68, 68, 68, 0.5);
+.section {
   color: var(--black);
-  width: 95%;
+  background-color: darkgray;
+  width: 100%;
   height: auto;
   margin: 2rem auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border-radius: 20px;
   text-align: center;
 }
@@ -116,45 +111,15 @@ section {
 .title-btn:hover {
   background-color: var(--blue-alt);
 }
-
-/* Music Styles */
-.music h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-.music-list {
+.wrapper {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  border-radius: 0;
 }
-.music-item {
-  background-color: var(--blue);
-  color: var(--white);
-  padding: 1rem;
-  border-radius: 20px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-.btn-music {
-  background-color: var(--red-alt);
-  color: var(--white);
-  padding: 0.75rem 1.5rem;
-  margin-top: 1rem;
-  display: inline-block;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 50px;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-.btn-music:hover {
-  background-color: var(--blue-alt);
-  color: var(--white);
-}
+
+
 /** NavBar Styles */
 nav {
   width: 100%;
@@ -199,13 +164,76 @@ nav a:hover{
 header img {
   width: 100px;
   height: auto;
+  background-color: var(--white);
+  border-radius: 3px;
+  padding: .25rem;
+}
+
+
+/* Hero Styles */
+.hero {
+  background-color: transparent;
+  color: var(--white);
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 0;
+  height: 100vh;
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+
+/* Music Styles */
+#music{
+  background-color: var(--white);
+}
+.music h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.music-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.music-item {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 1rem;
+  border-radius: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.btn-music {
+  background-color: var(--red-alt);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 50px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+.btn-music:hover {
+  background-color: var(--blue-alt);
+  color: var(--white);
 }
 
 
 /* Concerts styles */
 .concerts {
   color: var(--black);
-  width: 95%;
   height: auto;
   margin: 2rem auto;
   border-radius: 20px;
@@ -232,13 +260,18 @@ header img {
 
 
 /* About styles */
+#about{
+  background-color: var(--red-alt);
+}
+#about-content{
+}
+
 .band-members{
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 100%;
   margin-bottom: 2rem;
 }
 .cont{
@@ -318,8 +351,7 @@ header img {
 
 /* Login styles */
 .login{
-  background-color: var(--blue);
-  width: 95%;
+  background-color: var(--blue);;
   height: 100%;
   color: var(--white);
   padding: 2rem;
@@ -417,8 +449,6 @@ input, textarea{
   gap: .5rem;
   border-radius: 20px;
   padding: 1rem;
-  width: 95%;
-  max-width: 800px;
   margin: auto;
   background-color: var(--blue);
 }
@@ -427,8 +457,8 @@ input, textarea{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 95%;
   height: auto;
+  gap: 1rem;
 }
 
 @media (max-width: 600px) {
