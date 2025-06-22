@@ -13,7 +13,7 @@
     </div>
     <nav>
       <ul>
-        <li><a class="navBar" href="#about">About</a></li>
+        <li><a class="navBar" href="#music">Music</a></li>
         <li><a class="navBar" href="#gallery">Gallery</a></li>
         <li><a class="navBar" href="#contact-form">Contact</a></li>
       </ul>
@@ -144,5 +144,13 @@
   <footer>
     <p>© 2025 The Futons. Design by ZacksBroDev</p>
   </footer>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      setTimeout(() => {
+        this.reset();
+      }, 1); 
+    });
+  </script>
 </body>
 </html>
