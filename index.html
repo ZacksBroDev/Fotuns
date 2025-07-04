@@ -48,7 +48,12 @@
             alt="The Futons Logo"
           />
           <h2>3-Piece Furniture Set From Denver, CO</h2>
-          <a href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP" class="btn" id="title-btn">Listen on Spotify</a>
+          <a
+            href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP"
+            class="btn"
+            id="title-btn"
+            >Listen on Spotify</a
+          >
         </div>
       </section>
 
@@ -58,15 +63,25 @@
           <div class="music-list">
             <div class="music-item">
               <h3>Skeuomorph</h3>
-              <p>Release Date: </p>
+              <p>Release Date:</p>
               <p>Genre: Indie Pop</p>
-              <a href="https://open.spotify.com/track/3F4bilF6RN2IaSsQrNs4Vr" class="btn" id="btn-music">Listen Now</a>
+              <a
+                href="https://open.spotify.com/track/3F4bilF6RN2IaSsQrNs4Vr"
+                class="btn"
+                id="btn-music"
+                >Listen Now</a
+              >
             </div>
             <div class="music-item">
               <h3>Wematanye</h3>
-              <p>Release Date: </p>
+              <p>Release Date:</p>
               <p>Genre: Indie Rock</p>
-              <a href="https://open.spotify.com/track/2K5s4yXx7M2GszC2XZ0mDv" class="btn" id="btn-music">Listen Now</a>
+              <a
+                href="https://open.spotify.com/track/2K5s4yXx7M2GszC2XZ0mDv"
+                class="btn"
+                id="btn-music"
+                >Listen Now</a
+              >
             </div>
           </div>
         </div>
@@ -80,7 +95,12 @@
                 <p>Date: June 15, 2025</p>
                 <p>Venue: Downtown Denver Park</p>
               </div>
-              <a href="https://open.spotify.com/track/3F4bilF6RN2IaSsQrNs4Vr" class="btn" id="book-now">Book Now</a>
+              <a
+                href="https://open.spotify.com/track/3F4bilF6RN2IaSsQrNs4Vr"
+                class="btn"
+                id="book-now"
+                >Book Now</a
+              >
             </div>
             <div class="concert-item">
               <div>
@@ -88,7 +108,12 @@
                 <p>Date: June 15, 2025</p>
                 <p>Venue: Downtown Denver Park</p>
               </div>
-              <a href="https://open.spotify.com/track/3F4bilF6RN2IaSsQrNs4Vr" class="btn" id="book-now">Book Now</a>
+              <a
+                href="https://open.spotify.com/track/3F4bilF6RN2IaSsQrNs4Vr"
+                class="btn"
+                id="book-now"
+                >Book Now</a
+              >
             </div>
             <div class="concert-item">
               <div>
@@ -96,15 +121,31 @@
                 <p>Date: August 10, 2025</p>
                 <p>Venue: The Bluebird Theater</p>
               </div>
-              <a href="https://open.spotify.com/track/3F4bilF6RN2IaSsQrNs4Vr" class="btn" id="book-now">Book Now</a>
+              <a
+                href="https://open.spotify.com/track/3F4bilF6RN2IaSsQrNs4Vr"
+                class="btn"
+                id="book-now"
+                >Book Now</a
+              >
             </div>
           </div>
         </div>
 
-        <form action="https://api.web3forms.com/submit" method="POST" class="section book-now-form" value="Attending Concert">
-          <input type="hidden" name="access_key" value="e572cbd3-6837-4195-bc58-8b446a06c8cc"/>
+        <form
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          class="section book-now-form"
+          value="Attending Concert"
+        >
+          <input
+            type="hidden"
+            name="access_key"
+            value="e572cbd3-6837-4195-bc58-8b446a06c8cc"
+          />
           <input type="text" name="name" placeholder="Your Name" required />
-          <textarea name="message" placeholder="Your Message" required>I'll Be Attending This Event</textarea>
+          <textarea name="message" placeholder="Your Message" required>
+I'll Be Attending This Event</textarea
+          >
           <button type="submit" class="btn">Send Message</button>
         </form>
       </section>
@@ -230,21 +271,35 @@
       // Book Now form functionality
       const bookNowButtons = document.querySelectorAll("#book-now");
       const bookNowForm = document.querySelector(".book-now-form");
+      const messageTextarea = bookNowForm
+        ? bookNowForm.querySelector("textarea[name='message']")
+        : null;
 
-      bookNowButtons.forEach(button => {
-        button.addEventListener("click", function(e) {
+      bookNowButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
           e.preventDefault();
-          
+
+          // Get concert details from the clicked button's parent
+          const concertItem = this.closest(".concert-item");
+          const concertName = concertItem.querySelector("h3").textContent;
+          const concertDate = concertItem.querySelector("p").textContent;
+          const concertVenue = concertItem.querySelectorAll("p")[1].textContent;
+
+          // Update the message in the form
+          if (messageTextarea) {
+            messageTextarea.value = `I'll be attending ${concertName} on ${concertDate} at ${concertVenue}. Please send me more details!`;
+          }
+
           // Show the form with animation
           if (bookNowForm) {
             bookNowForm.style.display = "flex";
-            
+
             // Small delay to ensure display change takes effect before animation
             setTimeout(() => {
               bookNowForm.classList.add("show");
               bookNowForm.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
+                block: "center",
               });
             }, 10);
           }
@@ -253,7 +308,7 @@
 
       // Book Now form submission
       if (bookNowForm) {
-        bookNowForm.addEventListener("submit", function(e) {
+        bookNowForm.addEventListener("submit", function (e) {
           setTimeout(() => {
             this.reset();
             // Hide form after submission
