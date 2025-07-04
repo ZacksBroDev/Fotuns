@@ -1037,7 +1037,7 @@ input:focus, textarea:focus {
   background: linear-gradient(135deg, 
     rgba(255, 255, 255, 0.95) 0%, 
     rgba(248, 249, 250, 0.9) 50%,
-    rgba(108, 92, 231, 0.1) 100%);
+    rgba(245, 245, 245, 0.6) 100%);
   backdrop-filter: blur(20px);
   z-index: 8000;
   transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -1087,29 +1087,16 @@ input:focus, textarea:focus {
 
 @keyframes slideInBounce {
   0% {
-    right: -100%;
-    transform: translateX(100px) scale(0.5) rotateY(30deg);
     opacity: 0;
-  }
-  30% {
-    right: -10%;
-    transform: translateX(20px) scale(1.1) rotateY(-5deg);
-    opacity: 0.8;
+    transform: translateX(100px) scale(1) rotateY(0deg);
   }
   60% {
-    right: 5%;
-    transform: translateX(-10px) scale(1.05) rotateY(2deg);
-    opacity: 0.95;
-  }
-  80% {
-    right: -2%;
-    transform: translateX(5px) scale(1.02) rotateY(-1deg);
-    opacity: 0.98;
+    opacity: 0.5;
+    transform: translateX(0px) scale(1) rotateY(0deg);
   }
   100% {
-    right: 0;
-    transform: translateX(0) scale(1) rotateY(0deg);
     opacity: 1;
+    transform: translateX(0) scale(1) rotateY(0deg);
   }
 }
 
