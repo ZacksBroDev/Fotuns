@@ -229,11 +229,16 @@
       const mobileMenuLinks = document.querySelectorAll(".mobile-menu a");
 
       function openMobileMenu() {
-        if (menuTrigger) menuTrigger.classList.add("active");
-        if (mobileMenuTrigger) mobileMenuTrigger.classList.add("active");
+        // Show menu and overlay instantly
         mobileMenu.classList.add("active");
         mobileMenuOverlay.classList.add("active");
         document.body.classList.add("menu-open");
+
+        // Add delay only for hamburger animation
+        setTimeout(() => {
+          if (menuTrigger) menuTrigger.classList.add("active");
+          if (mobileMenuTrigger) mobileMenuTrigger.classList.add("active");
+        }, 500);
       }
 
       function closeMobileMenu() {
