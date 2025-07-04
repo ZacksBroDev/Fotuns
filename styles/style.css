@@ -1013,6 +1013,17 @@ input:focus, textarea:focus {
   header img {
     width: 80px;
   }
+  #bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .contact, .login {
+    width: 90%;
+    padding: 2rem;
+  }
 }
 
 /* Mobile Menu Styles */
