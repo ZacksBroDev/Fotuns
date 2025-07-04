@@ -1,157 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="/styles/style.css"/>
-  <title>The Futons</title>
-</head>
-<body id="home">
-  <header>
-    <div class="logo">
-      <img src="/assets/icons/Futons_Logo-04.PNG" alt="The Futons Logo"/>
-    </div>
-    <nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <title>The Futons</title>
+  </head>
+  <body id="home">
+    <header>
+      <div class="logo">
+        <img src="/assets/icons/Futons_Logo-04.PNG" alt="The Futons Logo" />
+      </div>
+      <nav>
+        <ul>
+          <li><a class="navBar" href="#music">Music</a></li>
+          <li><a class="navBar" href="#gallery">Gallery</a></li>
+          <li><a class="navBar" href="#contact-form">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="menu-trigger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </header>
+
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu">
+      <div class="menu-trigger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <ul>
-        <li><a class="navBar" href="#music">Music</a></li>
-        <li><a class="navBar" href="#gallery">Gallery</a></li>
-        <li><a class="navBar" href="#contact-form">Contact</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact-form">Contact</a></li>
       </ul>
-    </nav>
-  </header>
+    </div>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <img id="title-img" src="/assets/icons/Futons_Logo-04.PNG" alt="The Futons Logo"/>
-        <h2>3-Piece Furniture Set From Denver, CO</h2>
-        <a href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP" class="title-btn">Listen on Spotify</a>
-      </div>
-    </section>
-
-    <section class="wrapper" id="music">
-      <div class="section">
-        <h2>Latest Releases</h2>
-        <div class="music-list">
-          <div class="music-item">
-            <h3>Cozy Nights</h3>
-            <p>Release Date: January 10, 2025</p>
-            <p>Genre: Indie Pop</p>
-            <a href="https://open.spotify.com/track/1" class="btn-music">Listen Now</a>
-          </div>
-          <div class="music-item">
-            <h3>Chill Vibes</h3>
-            <p>Release Date: March 5, 2025</p>
-            <p>Genre: Indie Rock</p>
-            <a href="https://open.spotify.com/track/2" class="btn-music">Listen Now</a>
-          </div>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <img
+            id="title-img"
+            src="/assets/icons/Futons_Logo-04.PNG"
+            alt="The Futons Logo"
+          />
+          <h2>3-Piece Furniture Set From Denver, CO</h2>
+          <a
+            href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP"
+            class="title-btn"
+            >Listen on Spotify</a
+          >
         </div>
-      </div>
+      </section>
 
-      <div class="section concerts">
-        <h2>Upcoming Concerts</h2>
-        <div class="concert-list">
-          <div class="concert-item">
-            <h3>Denver Music Festival</h3>
-            <p>Date: June 15, 2025</p>
-            <p>Venue: Downtown Denver Park</p>
-          </div>
-          <div class="concert-item">
-            <h3>Summer Vibes Tour</h3>
-            <p>Date: July 20, 2025</p>
-            <p>Venue: Red Rocks Amphitheatre</p>
-          </div>
-          <div class="concert-item">
-            <h3>Indie Night at The Bluebird</h3>
-            <p>Date: August 10, 2025</p>
-            <p>Venue: The Bluebird Theater</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-
-    <section class="wrapper" id="about">
-      <div class="section" id="about-content">
-        <h3>About Us</h3>
-        <p>The Futons are an indie band with two releases and a cozy vibe. We make music from where we feel most at home—on the couch.</p>
-        <div class="band-members">
-          <div class="cont">
-            <img class="img" src="" alt="">
-            <div class="info">
-              <h3>Main Artist</h3>
-              <p>likes to play guitar and write songs about life.</p>
+      <section class="wrapper" id="music">
+        <div class="section">
+          <h2>Latest Releases</h2>
+          <div class="music-list">
+            <div class="music-item">
+              <h3>Cozy Nights</h3>
+              <p>Release Date: January 10, 2025</p>
+              <p>Genre: Indie Pop</p>
+              <a href="https://open.spotify.com/track/1" class="btn-music"
+                >Listen Now</a
+              >
             </div>
-          </div>
-          <div class="cont">
-            <img class="img" src="" alt="">
-            <div class="info">
-              <h3>Antonio Tabangay</h3>
-              <p>is a talented bassist who brings the groove to our sound.</p>
-            </div>
-          </div>
-          <div class="cont">
-            <img class="img" src="" alt="">
-            <div class="info">
-              <h3>Kento Yoshikawa</h3>
-              <p>keeps the beat and adds energy to our performances.</p>
+            <div class="music-item">
+              <h3>Chill Vibes</h3>
+              <p>Release Date: March 5, 2025</p>
+              <p>Genre: Indie Rock</p>
+              <a href="https://open.spotify.com/track/2" class="btn-music"
+                >Listen Now</a
+              >
             </div>
           </div>
         </div>
-      </div>
-      <div class="section" id="gallery">
-        <h3>Gallery</h3>
-        <div class="gallery-container">
-          <img src="/" alt="Band performing live" />
-          <img src="/" alt="Band in the studio" />
-          <img src="/" alt="Band hanging out" />
+
+        <div class="section concerts">
+          <h2>Upcoming Concerts</h2>
+          <div class="concert-list">
+            <div class="concert-item">
+              <h3>Denver Music Festival</h3>
+              <p>Date: June 15, 2025</p>
+              <p>Venue: Downtown Denver Park</p>
+            </div>
+            <div class="concert-item">
+              <h3>Summer Vibes Tour</h3>
+              <p>Date: July 20, 2025</p>
+              <p>Venue: Red Rocks Amphitheatre</p>
+            </div>
+            <div class="concert-item">
+              <h3>Indie Night at The Bluebird</h3>
+              <p>Date: August 10, 2025</p>
+              <p>Venue: The Bluebird Theater</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-    
+      </section>
 
+      <section class="wrapper" id="about">
+        <div class="section" id="about-content">
+          <h3>About Us</h3>
+          <p>
+            The Futons are an indie band with two releases and a cozy vibe. We
+            make music from where we feel most at home—on the couch.
+          </p>
+          <div class="band-members">
+            <div class="cont">
+              <img class="img" src="" alt="" />
+              <div class="info">
+                <h3>Main Artist</h3>
+                <p>likes to play guitar and write songs about life.</p>
+              </div>
+            </div>
+            <div class="cont">
+              <img class="img" src="" alt="" />
+              <div class="info">
+                <h3>Antonio Tabangay</h3>
+                <p>is a talented bassist who brings the groove to our sound.</p>
+              </div>
+            </div>
+            <div class="cont">
+              <img class="img" src="" alt="" />
+              <div class="info">
+                <h3>Kento Yoshikawa</h3>
+                <p>keeps the beat and adds energy to our performances.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section" id="gallery">
+          <h3>Gallery</h3>
+          <div class="gallery-container">
+            <img src="/" alt="Band performing live" />
+            <img src="/" alt="Band in the studio" />
+            <img src="/" alt="Band hanging out" />
+          </div>
+        </div>
+      </section>
 
-    <section class="contact-container" id="bottom">
+      <section class="contact-container" id="bottom">
         <div class="login">
           <h2>Log In</h2>
           <p>To subscribe to our newsletter and catch the latest updates</p>
           <form action="/login" method="POST" class="login-form">
             <input type="email" name="email" placeholder="Email" required />
-            <input type="password" name="password" placeholder="Password" required />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
             <button type="submit" class="btn">Login</button>
           </form>
         </div>
 
         <div class="contact">
-          <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form" value="Contact Form From The Futons">
-            <input type="hidden" name="access_key" value="e572cbd3-6837-4195-bc58-8b446a06c8cc">
+          <form
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            class="contact-form"
+            id="contact-form"
+            value="Contact Form From The Futons"
+          >
+            <input
+              type="hidden"
+              name="access_key"
+              value="e572cbd3-6837-4195-bc58-8b446a06c8cc"
+            />
             <h1 id="title">CONTACT US</h1>
-            <input id="name" type="text" name="name" placeholder="Name">
-            <input id="email" type="email" name="email" placeholder="Email">
-            <input type="tel" id="phone" name="phone" placeholder="Number">
-            <input id="subject" type="text" name="subject" placeholder="Subject">
-            <textarea id="message" name="message" placeholder="Message"></textarea>
+            <input id="name" type="text" name="name" placeholder="Name" />
+            <input id="email" type="email" name="email" placeholder="Email" />
+            <input type="tel" id="phone" name="phone" placeholder="Number" />
+            <input
+              id="subject"
+              type="text"
+              name="subject"
+              placeholder="Subject"
+            />
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Message"
+            ></textarea>
             <button id="submit" class="btn" id="login-btn">Submit</button>
           </form>
         </div>
-       
-        <div class="links">
-          <a id="insta" href="https://www.instagram.com/futon.s/"><img src="/assets/icons/insta2.png" alt="Instagram"></a>
-          <a id="spotify" href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP"><img src="/assets/icons/spotify.png" alt="Spotify"></a>
-          <a id="youtube" href="https://www.youtube.com/@futonsband"><img src="/assets/icons/youtube.png" alt="YouTube"></a>
-        </div>
-    </section>
-  </main>
-  <footer>
-    <p>© 2025 The Futons. Developed by ZackFullStack</p>
-  </footer>
 
-  <script>
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-      setTimeout(() => {
-        this.reset();
-      }, 1); 
-    });
-  </script>
-</body>
+        <div class="links">
+          <a id="insta" href="https://www.instagram.com/futon.s/"
+            ><img src="/assets/icons/insta2.png" alt="Instagram"
+          /></a>
+          <a
+            id="spotify"
+            href="https://open.spotify.com/artist/3AjiZYcWC5MOwgLzwx5hIP"
+            ><img src="/assets/icons/spotify.png" alt="Spotify"
+          /></a>
+          <a id="youtube" href="https://www.youtube.com/@futonsband"
+            ><img src="/assets/icons/youtube.png" alt="YouTube"
+          /></a>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>© 2025 The Futons. Developed by ZackFullStack</p>
+    </footer>
+
+    <script>
+      // Contact form functionality
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (e) {
+          setTimeout(() => {
+            this.reset();
+          }, 1);
+        });
+
+      // Fun Animated Menu Trigger Functionality
+      const menuTrigger = document.querySelector("header .menu-trigger");
+      const mobileMenuTrigger = document.querySelector(
+        ".mobile-menu .menu-trigger"
+      );
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+      const mobileMenuLinks = document.querySelectorAll(".mobile-menu a");
+
+      function openMobileMenu() {
+        if (menuTrigger) menuTrigger.classList.add("active");
+        if (mobileMenuTrigger) mobileMenuTrigger.classList.add("active");
+        mobileMenu.classList.add("active");
+        mobileMenuOverlay.classList.add("active");
+        document.body.classList.add("menu-open");
+      }
+
+      function closeMobileMenu() {
+        if (menuTrigger) menuTrigger.classList.remove("active");
+        if (mobileMenuTrigger) mobileMenuTrigger.classList.remove("active");
+        mobileMenu.classList.remove("active");
+        mobileMenuOverlay.classList.remove("active");
+        document.body.classList.remove("menu-open");
+      }
+
+      // Event listeners
+      if (menuTrigger) {
+        menuTrigger.addEventListener("click", openMobileMenu);
+      }
+
+      if (mobileMenuTrigger) {
+        mobileMenuTrigger.addEventListener("click", closeMobileMenu);
+      }
+
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener("click", closeMobileMenu);
+      }
+
+      // Close menu when clicking on a link
+      mobileMenuLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          closeMobileMenu();
+
+          // Smooth scroll to target
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute("href"));
+          if (target) {
+            setTimeout(() => {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }, 300);
+          }
+        });
+      });
+
+      // Smooth scroll for all navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          if (!this.closest(".mobile-menu")) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          }
+        });
+      });
+
+      // Add some extra visual effects on scroll
+      let lastScrollTop = 0;
+      window.addEventListener("scroll", () => {
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        const headerMenuTrigger = document.querySelector(
+          "header .menu-trigger"
+        );
+        const mobileMenuTrigger = document.querySelector(
+          ".mobile-menu .menu-trigger"
+        );
+
+        if (headerMenuTrigger && window.innerWidth <= 800) {
+          if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down - add subtle scale effect
+            headerMenuTrigger.style.transform =
+              headerMenuTrigger.classList.contains("active")
+                ? "scale(0.9) rotate(180deg)"
+                : "scale(0.9)";
+          } else {
+            // Scrolling up - return to normal
+            headerMenuTrigger.style.transform =
+              headerMenuTrigger.classList.contains("active")
+                ? "scale(1.1) rotate(180deg)"
+                : "scale(1)";
+          }
+        }
+        lastScrollTop = scrollTop;
+      });
+    </script>
+  </body>
 </html>
