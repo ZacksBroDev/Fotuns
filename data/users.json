@@ -1,0 +1,29 @@
+[
+  {
+    "id": "admin-001",
+    "name": "Admin User",
+    "email": "admin@futons.com",
+    "password": "$2b$10$C6iHB2gxAmc0u1GMo94J3udL/0m4Yrh0pRh09woc.jAlL0T6UriGa",
+    "role": "admin",
+    "newsletter": true,
+    "joinDate": "2025-01-01"
+  },
+  {
+    "id": "mcqyca0bxkc93bvqq4e",
+    "name": "Test Fan",
+    "email": "fan@example.com",
+    "password": "$2b$10$96tKkgYfFG4txnHT2aVK9.A/5Mt98ySeH0V.bgkNaDWQlBICm.avK",
+    "role": "user",
+    "newsletter": true,
+    "joinDate": "2025-07-06"
+  },
+  {
+    "id": "mcqyg0fz0u4on4peiwnl",
+    "name": "Zackary Brown",
+    "email": "zackaryzbrown@gmail.com",
+    "password": "$2b$10$pisWoWbs.G6eZUiDBGAD/.FZ7izqTdaLpMTJDyTx00FbEl9JZha8u",
+    "role": "user",
+    "newsletter": true,
+    "joinDate": "2025-07-06"
+  }
+]
