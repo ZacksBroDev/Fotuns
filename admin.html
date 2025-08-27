@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futons Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --background: #0c0c0c;
+            --surface: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #b8b8b8;
+            --border: #333;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --error: #e17055;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .logout-btn {
+            background: var(--error);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #d63031;
+            transform: translateY(-2px);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 5px;
+            border: 1px solid var(--border);
+        }
+
+        .tab {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab:hover:not(.active) {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+        }
+
+        .form-group input[type="file"] {
+            padding: 8px;
+            background: var(--surface);
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="file"]:hover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .file-info {
+            display: block;
+            margin-top: 5px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: #4a4a4a;
+        }
+
+        .btn-danger {
+            background: var(--error);
+        }
+
+        .btn-danger:hover {
+            background: #d63031;
+        }
+
+        .file-upload {
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .file-upload.dragover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .item-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .item-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .item-card p {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--error);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .login-form {
+            max-width: 400px;
+            margin: 100px auto;
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .login-form h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .alert-success {
+            background: rgba(0, 184, 148, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .alert-warning {
+            background: rgba(253, 203, 110, 0.2);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .alert-error {
+            background: rgba(225, 112, 85, 0.2);
+            border-color: var(--error);
+            color: var(--error);
+        }        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div id="loginForm" class="login-form">
+        <h2>🎸 Futons Admin Login</h2>
+        <div id="loginError" class="alert alert-error hidden"></div>
+        <form id="loginFormElement">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Login</button>
+        </form>
+        <p style="margin-top: 20px; text-align: center; color: var(--text-secondary); font-size: 14px;">
+            Default credentials: admin / admin123
+        </p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="hidden">
+        <div class="container">
+            <div class="header">
+                <h1>🎸 Futons Admin Panel</h1>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="albums">Gallery Albums</button>
+                <button class="tab" data-tab="concerts">Concerts</button>
+                <button class="tab" data-tab="music">Music</button>
+                <button class="tab" data-tab="photos">Photo Upload</button>
+            </div>
+
+            <!-- Albums Tab -->
+            <div id="albums" class="tab-content active">
+                <div class="section">
+                    <h2>Add New Album</h2>
+                    <form id="albumForm">
+                        <div class="form-group">
+                            <label for="albumTitle">Album Title</label>
+                            <input type="text" id="albumTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="albumDescription">Description</label>
+                            <textarea id="albumDescription" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="albumCover">Cover Image</label>
+                            <input type="file" id="albumCover" accept="image/*" required>
+                            <small class="file-info">Choose an image file for the album cover</small>
+                        </div>
+                        <button type="submit" class="btn">Create Album</button>
+                    </form>
+                </div>
+
+                <div class="section">
+                    <h2>Existing Albums</h2>
+                    <div id="albumsList" class="items-grid"></div>
+                </div>
+            </div>
+
+            <!-- Concerts Tab -->
+            <div id="concerts" class="tab-content">
+                <div class="section">
+                    <h2>Add New Concert</h2>
+                    <form id="concertForm">
+                        <div class="form-group">
+                            <label for="concertTitle">Concert Title</label>
+                            <input type="text" id="concertTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="concertDate">Date</label>
+                            <input type="text" id="concertDate" placeholder="June 15, 2025" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="concertVenue">Venue</label>
+                            <input type="text" id="concertVenue" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="concertBooking">Booking URL</label>
+                            <input type="url" id="concertBooking" placeholder="https://...">
+                        </div>
+                        <button type="submit" class="btn">Add Concert</button>
+                    </form>
+                </div>
+
+                <div class="section">
+                    <h2>Upcoming Concerts</h2>
+                    <div id="concertsList" class="items-grid"></div>
+                </div>
+            </div>
+
+            <!-- Music Tab -->
+            <div id="music" class="tab-content">
+                <div class="section">
+                    <h2>Add New Track</h2>
+                    <form id="musicForm">
+                        <div class="form-group">
+                            <label for="trackTitle">Track Title</label>
+                            <input type="text" id="trackTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="trackRelease">Release Date</label>
+                            <input type="text" id="trackRelease" placeholder="January 2025">
+                        </div>
+                        <div class="form-group">
+                            <label for="trackGenre">Genre</label>
+                            <input type="text" id="trackGenre" placeholder="Indie Pop">
+                        </div>
+                        <div class="form-group">
+                            <label for="trackSpotify">Spotify URL</label>
+                            <input type="url" id="trackSpotify" placeholder="https://open.spotify.com/...">
+                        </div>
+                        <button type="submit" class="btn">Add Track</button>
+                    </form>
+                </div>
+
+                <div class="section">
+                    <h2>Music Library</h2>
+                    <div id="musicList" class="items-grid"></div>
+                </div>
+            </div>
+
+            <!-- Photos Tab -->
+            <div id="photos" class="tab-content">
+                <div class="section">
+                    <h2>Upload Photos</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        💡 <strong>Tip:</strong> Select an album below first, then upload photos to automatically add them to that album!
+                    </p>
+                    <div class="form-group">
+                        <label for="uploadSelectAlbum">Add Photos to Album (Optional)</label>
+                        <select id="uploadSelectAlbum">
+                            <option value="">Upload without adding to album</option>
+                        </select>
+                    </div>
+                    <div class="file-upload" id="fileUpload">
+                        <input type="file" id="fileInput" accept="image/*" multiple>
+                        <p>📸 Click here or drag and drop photos to upload</p>
+                        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">
+                            Supports: JPG, PNG, WebP (Max 5MB each)
+                        </p>
+                    </div>
+                    <div id="uploadProgress" class="hidden">
+                        <div style="margin: 20px 0; color: var(--primary);">Uploading...</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Manage Album Photos</h2>
+                    <div class="form-group">
+                        <label for="selectAlbum">Select Album</label>
+                        <select id="selectAlbum">
+                            <option value="">Choose an album...</option>
+                        </select>
+                    </div>
+                    <div id="albumPhotos" class="photo-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AdminPanel {
+            constructor() {
+                this.token = localStorage.getItem('adminToken');
+                this.baseUrl = window.location.origin;
+                this.init();
+            }
+
+            init() {
+                if (this.token) {
+                    this.showAdminPanel();
+                } else {
+                    this.showLoginForm();
+                }
+
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                // Login form
+                document.getElementById('loginFormElement').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.login();
+                });
+
+                // Logout
+                document.getElementById('logoutBtn').addEventListener('click', () => {
+                    this.logout();
+                });
+
+                // Tabs
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        this.switchTab(tab.dataset.tab);
+                    });
+                });
+
+                // Forms
+                document.getElementById('albumForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addAlbum();
+                });
+
+                document.getElementById('concertForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addConcert();
+                });
+
+                document.getElementById('musicForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addMusic();
+                });
+
+                // File upload
+                const fileUpload = document.getElementById('fileUpload');
+                const fileInput = document.getElementById('fileInput');
+
+                fileUpload.addEventListener('click', () => fileInput.click());
+                fileUpload.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    fileUpload.classList.add('dragover');
+                });
+                fileUpload.addEventListener('dragleave', () => {
+                    fileUpload.classList.remove('dragover');
+                });
+                fileUpload.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    fileUpload.classList.remove('dragover');
+                    this.handleFileUpload(e.dataTransfer.files);
+                });
+
+                fileInput.addEventListener('change', (e) => {
+                    this.handleFileUpload(e.target.files);
+                });
+
+                // Album selection for photo management
+                document.getElementById('selectAlbum').addEventListener('change', (e) => {
+                    this.loadAlbumPhotos(e.target.value);
+                });
+            }
+
+            async login() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const errorDiv = document.getElementById('loginError');
+
+                try {
+                    const response = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        this.token = data.token;
+                        localStorage.setItem('adminToken', this.token);
+                        this.showAdminPanel();
+                    } else {
+                        errorDiv.textContent = data.error || 'Login failed';
+                        errorDiv.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    errorDiv.textContent = 'Connection error. Please try again.';
+                    errorDiv.classList.remove('hidden');
+                }
+            }
+
+            logout() {
+                this.token = null;
+                localStorage.removeItem('adminToken');
+                this.showLoginForm();
+            }
+
+            showLoginForm() {
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('adminPanel').classList.add('hidden');
+            }
+
+            showAdminPanel() {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('adminPanel').classList.remove('hidden');
+                this.loadData();
+            }
+
+            switchTab(tabName) {
+                // Update tab buttons
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+                // Update tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabName).classList.add('active');
+
+                // Load specific data
+                if (tabName === 'photos') {
+                    this.loadAlbumOptions();
+                }
+            }
+
+            async makeRequest(url, options = {}) {
+                const defaultOptions = {
+                    headers: {
+                        'Authorization': `Bearer ${this.token}`
+                    }
+                };
+
+                // Only add Content-Type for JSON requests, not for FormData
+                if (options.body && typeof options.body === 'string') {
+                    defaultOptions.headers['Content-Type'] = 'application/json';
+                }
+
+                const mergedOptions = {
+                    ...defaultOptions,
+                    ...options,
+                    headers: {
+                        ...defaultOptions.headers,
+                        ...options.headers
+                    }
+                };
+
+                const response = await fetch(url, mergedOptions);
+                
+                if (response.status === 401) {
+                    this.logout();
+                    return null;
+                }
+
+                return response;
+            }
+
+            async loadData() {
+                await Promise.all([
+                    this.loadAlbums(),
+                    this.loadConcerts(),
+                    this.loadMusic()
+                ]);
+            }
+
+            async loadAlbums() {
+                try {
+                    const response = await fetch('/api/albums');
+                    const albums = await response.json();
+                    this.displayAlbums(albums);
+                } catch (error) {
+                    console.error('Error loading albums:', error);
+                }
+            }
+
+            async loadConcerts() {
+                try {
+                    const response = await fetch('/api/concerts');
+                    const concerts = await response.json();
+                    this.displayConcerts(concerts);
+                } catch (error) {
+                    console.error('Error loading concerts:', error);
+                }
+            }
+
+            async loadMusic() {
+                try {
+                    const response = await fetch('/api/music');
+                    const music = await response.json();
+                    this.displayMusic(music);
+                } catch (error) {
+                    console.error('Error loading music:', error);
+                }
+            }
+
+            displayAlbums(albums) {
+                const container = document.getElementById('albumsList');
+                container.innerHTML = albums.map(album => `
+                    <div class="item-card">
+                        <h3>${album.title}</h3>
+                        <p>${album.description}</p>
+                        <p><strong>Cover:</strong> ${album.coverImage || 'No cover set'}</p>
+                        <p><strong>Photos:</strong> ${album.photos.length} images</p>
+                        <div class="item-actions">
+                            <button class="btn btn-secondary" onclick="admin.editAlbum('${album.id}')">Edit</button>
+                            <button class="btn btn-danger" onclick="admin.deleteAlbum('${album.id}')">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            displayConcerts(concerts) {
+                const container = document.getElementById('concertsList');
+                container.innerHTML = concerts.map(concert => `
+                    <div class="item-card">
+                        <h3>${concert.title}</h3>
+                        <p><strong>Date:</strong> ${concert.date}</p>
+                        <p><strong>Venue:</strong> ${concert.venue}</p>
+                        <p><strong>Booking:</strong> ${concert.bookingUrl ? 'Available' : 'Not set'}</p>
+                        <div class="item-actions">
+                            <button class="btn btn-secondary" onclick="admin.editConcert(${concert.id})">Edit</button>
+                            <button class="btn btn-danger" onclick="admin.deleteConcert(${concert.id})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            displayMusic(music) {
+                const container = document.getElementById('musicList');
+                container.innerHTML = music.map(track => `
+                    <div class="item-card">
+                        <h3>${track.title}</h3>
+                        <p><strong>Release:</strong> ${track.releaseDate || 'TBA'}</p>
+                        <p><strong>Genre:</strong> ${track.genre}</p>
+                        <p><strong>Spotify:</strong> ${track.spotifyUrl ? 'Available' : 'Not set'}</p>
+                        <div class="item-actions">
+                            <button class="btn btn-secondary" onclick="admin.editMusic(${track.id})">Edit</button>
+                            <button class="btn btn-danger" onclick="admin.deleteMusic(${track.id})">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            async addAlbum() {
+                const title = document.getElementById('albumTitle').value;
+                const description = document.getElementById('albumDescription').value;
+                const coverImageFile = document.getElementById('albumCover').files[0];
+
+                if (!coverImageFile) {
+                    this.showAlert('Please select a cover image', 'error');
+                    return;
+                }
+
+                try {
+                    // First upload the cover image
+                    const formData = new FormData();
+                    formData.append('photo', coverImageFile);
+
+                    const uploadResponse = await this.makeRequest('/api/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!uploadResponse.ok) {
+                        throw new Error('Failed to upload cover image');
+                    }
+
+                    const uploadResult = await uploadResponse.json();
+                    const coverImagePath = uploadResult.imagePath;
+
+                    // Then create the album with the uploaded image path
+                    const response = await this.makeRequest('/api/albums', {
+                        method: 'POST',
+                        body: JSON.stringify({ 
+                            title, 
+                            description, 
+                            coverImage: coverImagePath 
+                        })
+                    });
+
+                    if (response && response.ok) {
+                        this.showAlert('Album created successfully!', 'success');
+                        document.getElementById('albumForm').reset();
+                        this.loadAlbums();
+                    }
+                } catch (error) {
+                    console.error('Error creating album:', error);
+                    this.showAlert('Error creating album', 'error');
+                }
+            }
+
+            async addConcert() {
+                const title = document.getElementById('concertTitle').value;
+                const date = document.getElementById('concertDate').value;
+                const venue = document.getElementById('concertVenue').value;
+                const bookingUrl = document.getElementById('concertBooking').value;
+
+                try {
+                    const response = await this.makeRequest('/api/concerts', {
+                        method: 'POST',
+                        body: JSON.stringify({ title, date, venue, bookingUrl })
+                    });
+
+                    if (response && response.ok) {
+                        this.showAlert('Concert added successfully!', 'success');
+                        document.getElementById('concertForm').reset();
+                        this.loadConcerts();
+                    }
+                } catch (error) {
+                    this.showAlert('Error adding concert', 'error');
+                }
+            }
+
+            async addMusic() {
+                const title = document.getElementById('trackTitle').value;
+                const releaseDate = document.getElementById('trackRelease').value;
+                const genre = document.getElementById('trackGenre').value;
+                const spotifyUrl = document.getElementById('trackSpotify').value;
+
+                try {
+                    const response = await this.makeRequest('/api/music', {
+                        method: 'POST',
+                        body: JSON.stringify({ title, releaseDate, genre, spotifyUrl })
+                    });
+
+                    if (response && response.ok) {
+                        this.showAlert('Track added successfully!', 'success');
+                        document.getElementById('musicForm').reset();
+                        this.loadMusic();
+                    }
+                } catch (error) {
+                    this.showAlert('Error adding track', 'error');
+                }
+            }
+
+            async handleFileUpload(files) {
+                const progressDiv = document.getElementById('uploadProgress');
+                const selectedAlbum = document.getElementById('uploadSelectAlbum').value;
+                progressDiv.classList.remove('hidden');
+
+                for (let file of files) {
+                    if (file.size > 5 * 1024 * 1024) {
+                        this.showAlert(`File ${file.name} is too large (max 5MB)`, 'error');
+                        continue;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('photo', file);
+
+                    try {
+                        // Upload the photo first
+                        const response = await fetch('/api/upload', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${this.token}`
+                            },
+                            body: formData
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.showAlert(`${file.name} uploaded successfully!`, 'success');
+                            
+                            // If an album is selected, add the photo to that album
+                            if (selectedAlbum) {
+                                try {
+                                    const addToAlbumResponse = await this.makeRequest(`/api/albums/${selectedAlbum}/photos`, {
+                                        method: 'POST',
+                                        body: JSON.stringify({ photoPath: data.imagePath })
+                                    });
+                                    
+                                    if (addToAlbumResponse && addToAlbumResponse.ok) {
+                                        this.showAlert(`${file.name} added to album!`, 'success');
+                                        // Refresh the album photos display if viewing the same album
+                                        const viewingAlbum = document.getElementById('selectAlbum').value;
+                                        if (viewingAlbum === selectedAlbum) {
+                                            this.loadAlbumPhotos(selectedAlbum);
+                                        }
+                                    }
+                                } catch (error) {
+                                    console.error('Error adding photo to album:', error);
+                                    this.showAlert(`${file.name} uploaded but not added to album`, 'warning');
+                                }
+                            }
+                        } else {
+                            this.showAlert(`Error uploading ${file.name}`, 'error');
+                        }
+                    } catch (error) {
+                        this.showAlert(`Error uploading ${file.name}`, 'error');
+                    }
+                }
+
+                progressDiv.classList.add('hidden');
+                document.getElementById('fileInput').value = '';
+            }
+
+            async loadAlbumOptions() {
+                try {
+                    const response = await fetch('/api/albums');
+                    const albums = await response.json();
+                    
+                    // Update the album management selector
+                    const select = document.getElementById('selectAlbum');
+                    select.innerHTML = '<option value="">Choose an album...</option>' +
+                        albums.map(album => `<option value="${album.id}">${album.title}</option>`).join('');
+                    
+                    // Update the upload album selector
+                    const uploadSelect = document.getElementById('uploadSelectAlbum');
+                    if (uploadSelect) {
+                        uploadSelect.innerHTML = '<option value="">Upload without adding to album</option>' +
+                            albums.map(album => `<option value="${album.id}">${album.title}</option>`).join('');
+                    }
+                } catch (error) {
+                    console.error('Error loading album options:', error);
+                }
+            }
+
+            async loadAlbumPhotos(albumId) {
+                if (!albumId) {
+                    document.getElementById('albumPhotos').innerHTML = '';
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/albums');
+                    const albums = await response.json();
+                    const album = albums.find(a => a.id === albumId);
+                    
+                    if (album) {
+                        const container = document.getElementById('albumPhotos');
+                        container.innerHTML = album.photos.map(photo => `
+                            <div class="photo-item">
+                                <img src="${photo}" alt="Album photo">
+                                <button class="photo-remove" onclick="admin.removePhoto('${albumId}', '${photo}')">&times;</button>
+                            </div>
+                        `).join('');
+                    }
+                } catch (error) {
+                    console.error('Error loading album photos:', error);
+                }
+            }
+
+            async removePhoto(albumId, photoPath) {
+                if (!confirm('Remove this photo from the album?')) return;
+
+                try {
+                    const response = await this.makeRequest(`/api/albums/${albumId}/photos`, {
+                        method: 'DELETE',
+                        body: JSON.stringify({ photoPath })
+                    });
+
+                    if (response && response.ok) {
+                        this.showAlert('Photo removed successfully!', 'success');
+                        this.loadAlbumPhotos(albumId);
+                    }
+                } catch (error) {
+                    this.showAlert('Error removing photo', 'error');
+                }
+            }
+
+            async deleteAlbum(id) {
+                if (!confirm('Delete this album? This cannot be undone.')) return;
+
+                try {
+                    const response = await this.makeRequest(`/api/albums/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response && response.ok) {
+                        this.showAlert('Album deleted successfully!', 'success');
+                        this.loadAlbums();
+                    }
+                } catch (error) {
+                    this.showAlert('Error deleting album', 'error');
+                }
+            }
+
+            async deleteConcert(id) {
+                if (!confirm('Delete this concert? This cannot be undone.')) return;
+
+                try {
+                    const response = await this.makeRequest(`/api/concerts/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response && response.ok) {
+                        this.showAlert('Concert deleted successfully!', 'success');
+                        this.loadConcerts();
+                    }
+                } catch (error) {
+                    this.showAlert('Error deleting concert', 'error');
+                }
+            }
+
+            async deleteMusic(id) {
+                if (!confirm('Delete this track? This cannot be undone.')) return;
+
+                try {
+                    const response = await this.makeRequest(`/api/music/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response && response.ok) {
+                        this.showAlert('Track deleted successfully!', 'success');
+                        this.loadMusic();
+                    }
+                } catch (error) {
+                    this.showAlert('Error deleting track', 'error');
+                }
+            }
+
+            showAlert(message, type) {
+                // Create a temporary alert
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.textContent = message;
+                alert.style.position = 'fixed';
+                alert.style.top = '20px';
+                alert.style.right = '20px';
+                alert.style.zIndex = '9999';
+                alert.style.maxWidth = '300px';
+
+                document.body.appendChild(alert);
+
+                setTimeout(() => {
+                    alert.remove();
+                }, 4000);
+            }
+
+            // Placeholder methods for edit functionality
+            editAlbum(id) {
+                this.showAlert('Edit functionality coming soon!', 'warning');
+            }
+
+            editConcert(id) {
+                this.showAlert('Edit functionality coming soon!', 'warning');
+            }
+
+            editMusic(id) {
+                this.showAlert('Edit functionality coming soon!', 'warning');
+            }
+        }
+
+        // Initialize admin panel
+        const admin = new AdminPanel();
+    </script>
+</body>
+</html>

@@ -16,6 +16,7 @@
           <li><a class="navBar" href="#music">Music</a></li>
           <li><a class="navBar" href="#gallery">Gallery</a></li>
           <li><a class="navBar" href="#contact-form">Contact</a></li>
+          <li><a class="navBar admin-link" href="/admin" target="_blank" title="Admin Panel">⚙️</a></li>
         </ul>
       </nav>
       <div class="menu-trigger">
@@ -36,6 +37,7 @@
         <li><a href="#music">Music</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#contact-form">Contact</a></li>
+        <li><a href="/admin" target="_blank" class="admin-link">⚙️ Admin</a></li>
       </ul>
     </div>
 
@@ -183,58 +185,7 @@ I'll Be Attending This Event</textarea
         </div>
         <div class="section" id="gallery">
           <h3>Gallery</h3>
-          
-          <!-- Album Cover View (Compressed) -->
-          <div class="albums-grid">
-            <!-- Lion's Lair Album -->
-            <div class="album-cover" data-album="lions-lair-2025">
-              <div class="album-cover-image">
-                <img src="/assets/img/IMG_1879.jpg" alt="Lion's Lair Performance - Aug 2025" />
-                <div class="album-overlay">
-                  <div class="album-info">
-                    <h4>Lion's Lair - Aug 2025</h4>
-                    <p>14 Photos</p>
-                    <button class="view-album-btn">View Album</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Future albums can be added here -->
-          </div>
-
-          <!-- Album Detail View (Hidden by default) -->
-          <div class="album-detail" id="album-detail-lions-lair-2025" style="display: none;">
-            <div class="album-detail-header">
-              <button class="back-to-albums" onclick="backToAlbums()">← Back to Albums</button>
-              <h4>Lion's Lair Performance - August 14, 2025</h4>
-              <p>Our epic performance at Lion's Lair! Amazing crowd and energy.</p>
-            </div>
-            
-            <!-- Thumbnail Grid -->
-            <div class="thumbnail-grid">
-              <img src="/assets/img/IMG_1879.jpg" alt="Lion's Lair 08-14-2025 - Performance" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1881.jpg" alt="Lion's Lair 08-14-2025 - Stage Setup" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1896.jpg" alt="Lion's Lair 08-14-2025 - Crowd Energy" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1897.jpg" alt="Lion's Lair 08-14-2025 - Guitar Solo" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1898.jpg" alt="Lion's Lair 08-14-2025 - Band Unity" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1899.jpg" alt="Lion's Lair 08-14-2025 - Live Action" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1901.jpg" alt="Lion's Lair 08-14-2025 - Audience" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1904.jpg" alt="Lion's Lair 08-14-2025 - Bass Drop" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1911.jpg" alt="Lion's Lair 08-14-2025 - Spotlight" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1912.jpg" alt="Lion's Lair 08-14-2025 - Drums" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1914.jpg" alt="Lion's Lair 08-14-2025 - Vocals" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1916.jpg" alt="Lion's Lair 08-14-2025 - Finale" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1917.jpg" alt="Lion's Lair 08-14-2025 - Thank You" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1928.jpg" alt="Lion's Lair 08-14-2025 - Backstage" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1933.jpg" alt="Lion's Lair 08-14-2025 - Setup" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1939.jpg" alt="Lion's Lair 08-14-2025 - Sound Check" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1941.jpg" alt="Lion's Lair 08-14-2025 - Pre-Show" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1943.jpg" alt="Lion's Lair 08-14-2025 - Equipment" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1951.jpg" alt="Lion's Lair 08-14-2025 - Venue" onclick="openLightbox(this, 'lions-lair-2025')" />
-              <img src="/assets/img/IMG_1956.jpg" alt="Lion's Lair 08-14-2025 - Memories" onclick="openLightbox(this, 'lions-lair-2025')" />
-            </div>
-          </div>
+          <!-- Dynamic content will be loaded here -->
         </div>
 
         <!-- Lightbox Modal -->
@@ -258,21 +209,6 @@ I'll Be Attending This Event</textarea
       </section>
 
       <section class="contact-container" id="bottom">
-        <div class="login">
-          <h2>Log In</h2>
-          <p>To subscribe to our newsletter and catch the latest updates</p>
-          <form action="/login" method="POST" class="login-form">
-            <input type="email" name="email" placeholder="Email" required />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-            />
-            <button type="submit" class="btn">Login</button>
-          </form>
-        </div>
-
         <div class="contact">
           <form
             action="https://api.web3forms.com/submit"
@@ -494,25 +430,53 @@ I'll Be Attending This Event</textarea
         lastScrollTop = scrollTop;
       });
 
-      // Lightbox functionality
-      let currentImageIndex = 0;
-      let galleryImages = [];
-      let currentAlbum = '';
+      // ========================================
+      // GALLERY STATE MANAGEMENT
+      // ========================================
+      
+      /**
+       * Global variables for gallery and lightbox functionality
+       * These track the current state of the image viewer system
+       */
+      let currentImageIndex = 0;           // Index of currently displayed image in lightbox
+      let galleryImages = [];              // Array of image elements available for viewing
+      let currentAlbum = '';               // ID of the currently active album
 
-      // Initialize gallery images array
+      /**
+       * Initialize gallery functionality when DOM is loaded
+       * Sets up event listeners and prepares the gallery system
+       */
       document.addEventListener("DOMContentLoaded", function () {
         updateGalleryImages();
         initializeAlbumCovers();
+        console.log('🎸 Gallery system initialized');
       });
 
+      /**
+       * Update the gallery images array for lightbox navigation
+       * Collects all thumbnail images from the currently visible album
+       * Called when switching between albums or initializing the gallery
+       */
       function updateGalleryImages() {
-        // Get all visible images from the current active album detail view
+        // Find the currently visible album detail view
         const activeAlbumDetail = document.querySelector('.album-detail[style*="block"]');
+        
         if (activeAlbumDetail) {
+          // Get all thumbnail images from the active album
           galleryImages = Array.from(activeAlbumDetail.querySelectorAll('.thumbnail-grid img'));
+          console.log(`📸 Updated gallery: ${galleryImages.length} images available`);
+        } else {
+          // No active album, clear gallery images
+          galleryImages = [];
+          console.log('📸 Gallery cleared - no active album');
         }
       }
 
+      /**
+       * Initialize album cover functionality
+       * Sets up click event listeners for album covers and view buttons
+       * Enables navigation between album overview and detail views
+       */
       function initializeAlbumCovers() {
         // Add click event listeners to album covers
         document.querySelectorAll('.album-cover').forEach(cover => {
@@ -523,95 +487,312 @@ I'll Be Attending This Event</textarea
         });
 
         // Add click event listeners to "View Album" buttons
+        // These buttons provide an alternative way to enter album detail view
         document.querySelectorAll('.view-album-btn').forEach(btn => {
           btn.addEventListener('click', function(e) {
-            e.stopPropagation();
+            e.stopPropagation(); // Prevent event bubbling to parent album cover
             const albumId = this.closest('.album-cover').getAttribute('data-album');
             viewAlbum(albumId);
           });
         });
       }
 
+      // ========================================
+      // LIGHTBOX VIEWER SYSTEM
+      // ========================================
+      
+      /**
+       * Open the lightbox viewer with the specified image
+       * 
+       * @param {HTMLImageElement} img - The image element that was clicked
+       * @param {string} albumId - The ID of the album containing the image
+       */
       function openLightbox(img, albumId) {
+        // Set current album context and update available images
         currentAlbum = albumId;
         updateGalleryImages();
         
+        // Get lightbox DOM elements
         const lightbox = document.getElementById("lightbox");
         const lightboxImg = document.getElementById("lightbox-img");
         const lightboxCaption = document.getElementById("lightbox-caption");
 
-        // Find the index of clicked image
+        // Find the index of the clicked image within the gallery
         currentImageIndex = galleryImages.indexOf(img);
 
-        // Set the image and caption
+        // Set the image source and caption text
         lightboxImg.src = img.src;
         lightboxCaption.textContent = img.alt;
 
-        // Show the lightbox
+        // Show the lightbox and prevent background scrolling
         lightbox.style.display = "block";
-        document.body.style.overflow = "hidden"; // Prevent background scrolling
+        document.body.style.overflow = "hidden";
+        
+        console.log(`🖼️ Lightbox opened - Image ${currentImageIndex + 1}/${galleryImages.length}`);
       }
 
+      /**
+       * Close the lightbox viewer
+       * Hides the lightbox and restores normal page scrolling
+       */
       function closeLightbox() {
         const lightbox = document.getElementById("lightbox");
         lightbox.style.display = "none";
         document.body.style.overflow = "auto"; // Restore scrolling
+        
+        console.log('✖️ Lightbox closed');
       }
 
+      /**
+       * Navigate to the next image in the lightbox
+       * Loops to the first image when reaching the end
+       */
       function nextImage() {
+        // Calculate next image index (loop to beginning if at end)
         currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
         updateLightboxImage();
+        
+        console.log(`➡️ Next image: ${currentImageIndex + 1}/${galleryImages.length}`);
       }
 
+      /**
+       * Navigate to the previous image in the lightbox
+       * Loops to the last image when reaching the beginning
+       */
       function prevImage() {
-        currentImageIndex =
-          (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+        // Calculate previous image index (loop to end if at beginning)
+        currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
         updateLightboxImage();
+        
+        console.log(`⬅️ Previous image: ${currentImageIndex + 1}/${galleryImages.length}`);
       }
 
+      /**
+       * Update the lightbox display with the current image
+       * Called when navigating between images in the lightbox
+       */
       function updateLightboxImage() {
         const lightboxImg = document.getElementById("lightbox-img");
         const lightboxCaption = document.getElementById("lightbox-caption");
         const currentImg = galleryImages[currentImageIndex];
 
+        // Update image source and caption
         lightboxImg.src = currentImg.src;
         lightboxCaption.textContent = currentImg.alt;
       }
 
-      // Keyboard navigation
+      // ========================================
+      // DYNAMIC CONTENT LOADING SYSTEM
+      // ========================================
+      
+      /**
+       * Load dynamic content from API endpoints
+       * Fetches albums, concerts, and music data from the server
+       * Updates the DOM with fresh content on page load
+       */
+      async function loadContent() {
+        try {
+          // Fetch albums data from server
+          const albumsResponse = await fetch('/api/albums');
+          const albums = await albumsResponse.json();
+          updateAlbums(albums);
+
+          // Fetch concerts data from server
+          const concertsResponse = await fetch('/api/concerts');
+          const concerts = await concertsResponse.json();
+          updateConcerts(concerts);
+
+          // Fetch music data from server
+          const musicResponse = await fetch('/api/music');
+          const music = await musicResponse.json();
+          updateMusic(music);
+          
+          console.log('✅ Content loaded successfully');
+        } catch (error) {
+          console.error('❌ Error loading content:', error);
+          // Graceful degradation - site still works with static content
+        }
+      }
+
+      /**
+       * Update the gallery section with dynamic album data
+       * Creates compressed album covers that expand into full galleries
+       * 
+       * @param {Array} albums - Array of album objects from server
+       */
+      function updateAlbums(albums) {
+        const gallerySection = document.querySelector('#gallery');
+        
+        // Generate HTML for compressed album covers
+        const albumsHTML = `
+          <div class="albums-grid">
+            ${albums.map(album => `
+              <div class="album-cover" onclick="viewAlbum('${album.id}')">
+                <div class="album-cover-image">
+                  <img src="${album.coverImage}" alt="${album.title}">
+                </div>
+                <div class="album-overlay">
+                  <div class="album-info">
+                    <h4>${album.title}</h4>
+                    <p>${album.description}</p>
+                    <div class="view-album-btn">View Album</div>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          
+          ${albums.map(album => `
+            <div id="album-detail-${album.id}" class="album-detail" style="display: none;">
+              <div class="album-detail-header">
+                <button class="back-to-albums" onclick="backToAlbums()">← Back to Albums</button>
+                <h4>${album.title}</h4>
+                <p>${album.description}</p>
+              </div>
+              <div class="thumbnail-grid">
+                ${album.photos.map((photo, index) => `
+                  <img src="${photo}" alt="${album.title} photo ${index + 1}" 
+                       onclick="openLightbox(${index})" data-album="${album.id}">
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        `;
+        
+        // Update DOM with new album content
+        gallerySection.innerHTML = '<h2>Gallery</h2>' + albumsHTML;
+      }
+
+      /**
+       * Update the concerts section with dynamic concert data
+       * 
+       * @param {Array} concerts - Array of concert objects from server
+       */
+      function updateConcerts(concerts) {
+        const concertsList = document.querySelector('.concert-list');
+        
+        // Generate HTML for concert listings
+        const concertsHTML = concerts.map(concert => `
+          <div class="concert-item">
+            <div>
+              <h3>${concert.title}</h3>
+              <p>Date: ${concert.date}</p>
+              <p>Venue: ${concert.venue}</p>
+            </div>
+            <a href="${concert.bookingUrl}" class="btn" id="book-now">Book Now</a>
+          </div>
+        `).join('');
+        
+        // Update DOM with new concert content
+        concertsList.innerHTML = concertsHTML;
+      }
+
+      /**
+       * Update the music section with dynamic music data
+       * 
+       * @param {Array} music - Array of music track objects from server
+       */
+      function updateMusic(music) {
+        const musicList = document.querySelector('.music-list');
+        
+        // Generate HTML for music releases
+        const musicHTML = music.map(track => `
+          <div class="music-item">
+            <h3>${track.title}</h3>
+            <p>Release Date: ${track.releaseDate || 'TBA'}</p>
+            <p>Genre: ${track.genre}</p>
+            <a href="${track.spotifyUrl}" class="btn" id="btn-music">Listen Now</a>
+          </div>
+        `).join('');
+        
+        // Update DOM with new music content
+        musicList.innerHTML = musicHTML;
+      }
+
+      // ========================================
+      // APPLICATION INITIALIZATION
+      // ========================================
+      
+      /**
+       * Initialize the website when DOM is fully loaded
+       * Sets up event listeners and loads dynamic content
+       */
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('🎸 Futons website initializing...');
+        
+        // Load dynamic content from server
+        loadContent();
+        
+        // Set up lightbox navigation
+        updateGalleryImages();
+        
+        console.log('✅ Website initialized successfully');
+      });
+
+      // ========================================
+      // KEYBOARD NAVIGATION
+      // ========================================
+      
+      /**
+       * Handle keyboard navigation for the lightbox
+       * Supports arrow keys for navigation and escape key to close
+       */
       document.addEventListener("keydown", function (e) {
         const lightbox = document.getElementById("lightbox");
+        
+        // Only handle keyboard events when lightbox is open
         if (lightbox.style.display === "block") {
-          if (e.key === "Escape") {
-            closeLightbox();
-          } else if (e.key === "ArrowRight") {
-            nextImage();
-          } else if (e.key === "ArrowLeft") {
-            prevImage();
+          switch(e.key) {
+            case "Escape":
+              closeLightbox();
+              break;
+            case "ArrowRight":
+              nextImage();
+              break;
+            case "ArrowLeft":
+              prevImage();
+              break;
           }
         }
       });
 
-      // Album Cover functionality
+      // ========================================
+      // ALBUM NAVIGATION SYSTEM
+      // ========================================
+      
+      /**
+       * View a specific album in detail mode
+       * Hides the album grid and shows the selected album's photos
+       * 
+       * @param {string} albumId - The ID of the album to view
+       */
       function viewAlbum(albumId) {
-        // Hide album covers grid
+        // Hide the main album covers grid
         document.querySelector('.albums-grid').style.display = 'none';
         
-        // Show album detail view
+        // Show the detailed view for the selected album
         document.getElementById(`album-detail-${albumId}`).style.display = 'block';
         
-        // Update gallery images for lightbox
+        // Update gallery images array for lightbox navigation
         updateGalleryImages();
+        
+        console.log(`📁 Viewing album: ${albumId}`);
       }
 
+      /**
+       * Return to the main albums grid view
+       * Hides all album detail views and shows the album covers
+       */
       function backToAlbums() {
         // Hide all album detail views
         document.querySelectorAll('.album-detail').forEach(detail => {
           detail.style.display = 'none';
         });
         
-        // Show album covers grid
+        // Show the main album covers grid
         document.querySelector('.albums-grid').style.display = 'grid';
+        
+        console.log('📁 Returned to albums grid');
       }
     </script>
   </body>
