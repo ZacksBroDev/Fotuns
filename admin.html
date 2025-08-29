@@ -349,7 +349,62 @@
             background: rgba(225, 112, 85, 0.2);
             border-color: var(--error);
             color: var(--error);
-        }        .hidden {
+        }
+
+        /* Photo Preview Styles */
+        .photo-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--surface);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .photo-preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--background);
+            border: 1px solid var(--border);
+        }
+
+        .photo-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-preview-item .remove-photo {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: var(--error);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: opacity 0.2s ease;
+        }
+
+        .photo-preview-item .remove-photo:hover {
+            opacity: 1;
+            background: #d63031;
+        }
+
+        .hidden {
             display: none !important;
         }
 
@@ -403,39 +458,10 @@
                 <button id="logoutBtn" class="logout-btn">Logout</button>
             </div>
 
-            <div class="tabs">
-                <button class="tab active" data-tab="albums">Gallery Albums</button>
+                        <div class="tabs">
+                <button class="tab" data-tab="photos" class="active">Photo Upload</button>
                 <button class="tab" data-tab="concerts">Concerts</button>
                 <button class="tab" data-tab="music">Music</button>
-                <button class="tab" data-tab="photos">Photo Upload</button>
-            </div>
-
-            <!-- Albums Tab -->
-            <div id="albums" class="tab-content active">
-                <div class="section">
-                    <h2>Add New Album</h2>
-                    <form id="albumForm">
-                        <div class="form-group">
-                            <label for="albumTitle">Album Title</label>
-                            <input type="text" id="albumTitle" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="albumDescription">Description</label>
-                            <textarea id="albumDescription" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="albumCover">Cover Image</label>
-                            <input type="file" id="albumCover" accept="image/*" required>
-                            <small class="file-info">Choose an image file for the album cover</small>
-                        </div>
-                        <button type="submit" class="btn">Create Album</button>
-                    </form>
-                </div>
-
-                <div class="section">
-                    <h2>Existing Albums</h2>
-                    <div id="albumsList" class="items-grid"></div>
-                </div>
             </div>
 
             <!-- Concerts Tab -->
@@ -501,38 +527,74 @@
             </div>
 
             <!-- Photos Tab -->
-            <div id="photos" class="tab-content">
+            <div id="photos" class="tab-content active">
                 <div class="section">
-                    <h2>Upload Photos</h2>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                        💡 <strong>Tip:</strong> Select an album below first, then upload photos to automatically add them to that album!
-                    </p>
-                    <div class="form-group">
-                        <label for="uploadSelectAlbum">Add Photos to Album (Optional)</label>
-                        <select id="uploadSelectAlbum">
-                            <option value="">Upload without adding to album</option>
-                        </select>
-                    </div>
-                    <div class="file-upload" id="fileUpload">
-                        <input type="file" id="fileInput" accept="image/*" multiple>
-                        <p>📸 Click here or drag and drop photos to upload</p>
-                        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">
-                            Supports: JPG, PNG, WebP (Max 5MB each)
-                        </p>
-                    </div>
-                    <div id="uploadProgress" class="hidden">
-                        <div style="margin: 20px 0; color: var(--primary);">Uploading...</div>
-                    </div>
+                    <h2>Create New Album & Upload Photos</h2>
+                    <form id="albumForm">
+                        <div class="form-group">
+                            <label for="albumTitle">Album Title</label>
+                            <input type="text" id="albumTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="albumDescription">Description</label>
+                            <textarea id="albumDescription" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="albumCover">Cover Image</label>
+                            <input type="file" id="albumCover" accept="image/*" required>
+                            <small class="file-info">Choose an image file for the album cover (Max 100MB)</small>
+                        </div>
+                        
+                        <h3 style="margin: 30px 0 15px 0; color: var(--primary);">Album Photos</h3>
+                        <div class="file-upload" id="albumFileUpload">
+                            <input type="file" id="albumPhotosInput" accept="image/*" multiple>
+                            <p>📸 Click here or drag and drop photos for this album</p>
+                            <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">
+                                Supports: JPG, PNG, WebP (Max 100MB each)
+                            </p>
+                        </div>
+                        
+                        <div id="stagedPhotos" class="staged-photos">
+                            <h4>Staged Photos (<span id="photoCount">0</span>)</h4>
+                            <div id="photoPreview" class="photo-preview-grid"></div>
+                        </div>
+                        
+                        <div class="album-actions">
+                            <button type="button" class="btn btn-secondary" onclick="admin.clearStagedPhotos()">Clear Photos</button>
+                            <button type="submit" class="btn">Create Album & Publish Photos</button>
+                        </div>
+                    </form>
                 </div>
 
                 <div class="section">
-                    <h2>Manage Album Photos</h2>
+                    <h2>Existing Albums</h2>
+                    <div style="margin-bottom: 10px;">
+                        <button onclick="window.testAdmin()" class="btn btn-secondary">🧪 Test Admin Object</button>
+                        <button onclick="console.log('Simple click test works!')" class="btn btn-secondary">🔬 Test Click</button>
+                    </div>
+                    <div id="albumsList" class="items-grid"></div>
+                </div>
+
+                <div class="section">
+                    <h2>Add Photos to Existing Album</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        💡 <strong>Tip:</strong> Select an album below first, then upload photos to automatically add them to that album!
+                    </p>
                     <div class="form-group">
                         <label for="selectAlbum">Select Album</label>
                         <select id="selectAlbum">
                             <option value="">Choose an album...</option>
                         </select>
                     </div>
+                    
+                    <div class="file-upload" id="fileUpload">
+                        <input type="file" id="fileInput" accept="image/*" multiple>
+                        <p>📸 Click here or drag and drop photos</p>
+                        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">
+                            Supports: JPG, PNG, WebP (Max 100MB each)
+                        </p>
+                    </div>
+
                     <div id="albumPhotos" class="photo-grid"></div>
                 </div>
             </div>
@@ -550,6 +612,7 @@
             init() {
                 if (this.token) {
                     this.showAdminPanel();
+                    this.loadContent();
                 } else {
                     this.showLoginForm();
                 }
@@ -558,6 +621,9 @@
             }
 
             setupEventListeners() {
+                // Initialize staged photos array
+                this.stagedPhotos = [];
+
                 // Login form
                 document.getElementById('loginFormElement').addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -618,6 +684,139 @@
                 document.getElementById('selectAlbum').addEventListener('change', (e) => {
                     this.loadAlbumPhotos(e.target.value);
                 });
+            }
+
+            /**
+             * Initialize the album photo staging system
+             * Sets up drag-and-drop and file selection for album creation
+             */
+            initAlbumPhotoStaging() {
+                console.log('Initializing album photo staging...');
+                
+                // Initialize staged photos array
+                this.stagedPhotos = [];
+                
+                const albumFileUpload = document.getElementById('albumFileUpload');
+                const albumPhotosInput = document.getElementById('albumPhotosInput');
+
+                console.log('Album file upload element:', albumFileUpload);
+                console.log('Album photos input element:', albumPhotosInput);
+
+                if (!albumFileUpload || !albumPhotosInput) {
+                    console.error('Album photo staging elements not found!');
+                    return;
+                }
+
+                // Click to select files
+                albumFileUpload.addEventListener('click', (e) => {
+                    if (e.target === albumFileUpload) {
+                        albumPhotosInput.click();
+                    }
+                });
+
+                // Drag and drop handlers
+                albumFileUpload.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    albumFileUpload.style.borderColor = 'var(--accent)';
+                    albumFileUpload.style.backgroundColor = 'rgba(218, 165, 32, 0.15)';
+                });
+
+                albumFileUpload.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    albumFileUpload.style.borderColor = 'var(--primary)';
+                    albumFileUpload.style.backgroundColor = 'transparent';
+                });
+
+                albumFileUpload.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    albumFileUpload.style.borderColor = 'var(--primary)';
+                    albumFileUpload.style.backgroundColor = 'transparent';
+                    this.handleAlbumPhotos(e.dataTransfer.files);
+                });
+
+                // File input change handler
+                albumPhotosInput.addEventListener('change', (e) => {
+                    this.handleAlbumPhotos(e.target.files);
+                });
+            }
+
+            /**
+             * Handle photos selected for album staging
+             * @param {FileList} files - Files selected by user
+             */
+            handleAlbumPhotos(files) {
+                console.log('handleAlbumPhotos called with', files.length, 'files');
+                const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+                const maxSize = 100 * 1024 * 1024; // 100MB
+
+                Array.from(files).forEach(file => {
+                    console.log('Processing file:', file.name, 'Size:', file.size, 'Type:', file.type);
+                    
+                    // Validate file type
+                    if (!validTypes.includes(file.type)) {
+                        this.showAlert(`"${file.name}" is not a valid image type. Please use JPG, PNG, or WebP.`, 'error');
+                        return;
+                    }
+
+                    // Validate file size
+                    if (file.size > maxSize) {
+                        this.showAlert(`"${file.name}" is too large. Maximum size is 100MB.`, 'error');
+                        return;
+                    }
+
+                    // Check if file already staged
+                    if (this.stagedPhotos.some(staged => staged.name === file.name && staged.size === file.size)) {
+                        this.showAlert(`"${file.name}" is already staged.`, 'warning');
+                        return;
+                    }
+
+                    // Add to staged photos
+                    this.stagedPhotos.push(file);
+                });
+
+                this.updatePhotoPreview();
+            }
+
+            /**
+             * Update the photo preview grid
+             */
+            updatePhotoPreview() {
+                const previewGrid = document.getElementById('photoPreview');
+                const photoCount = document.getElementById('photoCount');
+                
+                if (!previewGrid || !photoCount) return;
+
+                photoCount.textContent = this.stagedPhotos.length;
+
+                previewGrid.innerHTML = this.stagedPhotos.map((file, index) => `
+                    <div class="photo-preview-item">
+                        <img src="${URL.createObjectURL(file)}" alt="${file.name}">
+                        <button class="remove-photo" onclick="admin.removeStagedPhoto(${index})" title="Remove photo">
+                            ×
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            /**
+             * Remove a photo from staging
+             * @param {number} index - Index of photo to remove
+             */
+            removeStagedPhoto(index) {
+                if (index >= 0 && index < this.stagedPhotos.length) {
+                    this.stagedPhotos.splice(index, 1);
+                    this.updatePhotoPreview();
+                }
+            }
+
+            /**
+             * Clear all staged photos
+             */
+            clearStagedPhotos() {
+                this.stagedPhotos = [];
+                this.updatePhotoPreview();
+                document.getElementById('albumPhotosInput').value = '';
+                this.showAlert('All staged photos cleared.', 'info');
             }
 
             async login() {
@@ -723,6 +922,9 @@
                     this.loadConcerts(),
                     this.loadMusic()
                 ]);
+                
+                // Initialize album photo staging after all data is loaded
+                this.initAlbumPhotoStaging();
             }
 
             async loadAlbums() {
@@ -756,6 +958,7 @@
             }
 
             displayAlbums(albums) {
+                console.log('🎯 displayAlbums called with:', albums);
                 const container = document.getElementById('albumsList');
                 container.innerHTML = albums.map(album => `
                     <div class="item-card">
@@ -764,14 +967,35 @@
                         <p><strong>Cover:</strong> ${album.coverImage || 'No cover set'}</p>
                         <p><strong>Photos:</strong> ${album.photos.length} images</p>
                         <div class="item-actions">
-                            <button class="btn btn-secondary" onclick="admin.editAlbum('${album.id}')">Edit</button>
-                            <button class="btn btn-danger" onclick="admin.deleteAlbum('${album.id}')">Delete</button>
+                            <button class="btn btn-secondary edit-album-btn" data-album-id="${album.id}">Edit</button>
+                            <button class="btn btn-danger delete-album-btn" data-album-id="${album.id}">Delete</button>
                         </div>
                     </div>
                 `).join('');
+                
+                // Add event listeners to all edit buttons
+                document.querySelectorAll('.edit-album-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const albumId = e.target.getAttribute('data-album-id');
+                        console.log('✏️ Edit button clicked for album:', albumId);
+                        this.editAlbum(albumId);
+                    });
+                });
+                
+                // Add event listeners to all delete buttons
+                document.querySelectorAll('.delete-album-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const albumId = e.target.getAttribute('data-album-id');
+                        console.log('🗑️ Delete button clicked for album:', albumId);
+                        this.deleteAlbum(albumId);
+                    });
+                });
+                
+                console.log('🎯 Albums displayed successfully with event listeners attached');
             }
 
             displayConcerts(concerts) {
+                console.log('🎵 displayConcerts called with:', concerts);
                 const container = document.getElementById('concertsList');
                 container.innerHTML = concerts.map(concert => `
                     <div class="item-card">
@@ -780,14 +1004,35 @@
                         <p><strong>Venue:</strong> ${concert.venue}</p>
                         <p><strong>Booking:</strong> ${concert.bookingUrl ? 'Available' : 'Not set'}</p>
                         <div class="item-actions">
-                            <button class="btn btn-secondary" onclick="admin.editConcert(${concert.id})">Edit</button>
-                            <button class="btn btn-danger" onclick="admin.deleteConcert(${concert.id})">Delete</button>
+                            <button class="btn btn-secondary edit-concert-btn" data-concert-id="${concert.id}">Edit</button>
+                            <button class="btn btn-danger delete-concert-btn" data-concert-id="${concert.id}">Delete</button>
                         </div>
                     </div>
                 `).join('');
+                
+                // Add event listeners to all edit buttons
+                document.querySelectorAll('.edit-concert-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const concertId = e.target.getAttribute('data-concert-id');
+                        console.log('✏️ Edit concert button clicked for:', concertId);
+                        this.editConcert(concertId);
+                    });
+                });
+                
+                // Add event listeners to all delete buttons
+                document.querySelectorAll('.delete-concert-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const concertId = e.target.getAttribute('data-concert-id');
+                        console.log('🗑️ Delete concert button clicked for:', concertId);
+                        this.deleteConcert(concertId);
+                    });
+                });
+                
+                console.log('🎵 Concerts displayed successfully with event listeners attached');
             }
 
             displayMusic(music) {
+                console.log('🎶 displayMusic called with:', music);
                 const container = document.getElementById('musicList');
                 container.innerHTML = music.map(track => `
                     <div class="item-card">
@@ -796,58 +1041,194 @@
                         <p><strong>Genre:</strong> ${track.genre}</p>
                         <p><strong>Spotify:</strong> ${track.spotifyUrl ? 'Available' : 'Not set'}</p>
                         <div class="item-actions">
-                            <button class="btn btn-secondary" onclick="admin.editMusic(${track.id})">Edit</button>
-                            <button class="btn btn-danger" onclick="admin.deleteMusic(${track.id})">Delete</button>
+                            <button class="btn btn-secondary edit-music-btn" data-music-id="${track.id}">Edit</button>
+                            <button class="btn btn-danger delete-music-btn" data-music-id="${track.id}">Delete</button>
                         </div>
                     </div>
                 `).join('');
+                
+                // Add event listeners to all edit buttons
+                document.querySelectorAll('.edit-music-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const musicId = e.target.getAttribute('data-music-id');
+                        console.log('✏️ Edit music button clicked for:', musicId);
+                        this.editMusic(musicId);
+                    });
+                });
+                
+                // Add event listeners to all delete buttons
+                document.querySelectorAll('.delete-music-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const musicId = e.target.getAttribute('data-music-id');
+                        console.log('🗑️ Delete music button clicked for:', musicId);
+                        this.deleteMusic(musicId);
+                    });
+                });
+                
+                console.log('🎶 Music displayed successfully with event listeners attached');
             }
 
             async addAlbum() {
+                console.log('🔍 Starting addAlbum function');
+                
                 const title = document.getElementById('albumTitle').value;
                 const description = document.getElementById('albumDescription').value;
                 const coverImageFile = document.getElementById('albumCover').files[0];
+                const form = document.getElementById('albumForm');
+                const isEditing = form.dataset.editId;
 
-                if (!coverImageFile) {
+                console.log('📝 Form data:', { title, description, hasCoverImage: !!coverImageFile, stagedPhotosCount: this.stagedPhotos.length, isEditing });
+
+                // If editing, we don't require a new cover image
+                if (!isEditing && !coverImageFile) {
                     this.showAlert('Please select a cover image', 'error');
                     return;
                 }
 
+                // If editing, we don't require staged photos (they can update just the text)
+                if (!isEditing && this.stagedPhotos.length === 0) {
+                    this.showAlert('Please add at least one photo to the album', 'error');
+                    return;
+                }
+
                 try {
-                    // First upload the cover image
-                    const formData = new FormData();
-                    formData.append('photo', coverImageFile);
+                    let coverImagePath = null;
+                    
+                    if (isEditing) {
+                        console.log('✏️ Editing existing album');
+                        this.showAlert('Updating album...', 'info');
+                        
+                        // For editing, only upload new cover if provided
+                        if (coverImageFile) {
+                            console.log('📸 Uploading new cover image');
+                            const coverFormData = new FormData();
+                            coverFormData.append('photo', coverImageFile);
 
-                    const uploadResponse = await this.makeRequest('/api/upload', {
-                        method: 'POST',
-                        body: formData
-                    });
+                            const uploadResponse = await this.makeRequest('/api/upload', {
+                                method: 'POST',
+                                body: coverFormData
+                            });
 
-                    if (!uploadResponse.ok) {
-                        throw new Error('Failed to upload cover image');
+                            if (!uploadResponse.ok) {
+                                throw new Error('Failed to upload new cover image');
+                            }
+
+                            const uploadResult = await uploadResponse.json();
+                            coverImagePath = uploadResult.imagePath;
+                            console.log('✅ Cover image uploaded:', coverImagePath);
+                        }
+                        
+                        // Update the album
+                        const updateData = { title, description };
+                        if (coverImagePath) {
+                            updateData.coverImage = coverImagePath;
+                        }
+                        
+                        console.log('🔄 Updating album with data:', updateData);
+                        const albumResponse = await this.makeRequest(`/api/albums/${isEditing}`, {
+                            method: 'PUT',
+                            body: JSON.stringify(updateData)
+                        });
+
+                        if (!albumResponse || !albumResponse.ok) {
+                            throw new Error('Failed to update album');
+                        }
+
+                        this.showAlert(`🎉 Album "${title}" updated successfully!`, 'success');
+                        
+                    } else {
+                        console.log('🆕 Creating new album');
+                        this.showAlert('Creating album and uploading photos...', 'info');
+
+                        // Step 1: Upload the cover image
+                        console.log('📸 Uploading cover image');
+                        const coverFormData = new FormData();
+                        coverFormData.append('photo', coverImageFile);
+
+                        const uploadResponse = await this.makeRequest('/api/upload', {
+                            method: 'POST',
+                            body: coverFormData
+                        });
+
+                        console.log('📸 Cover upload response status:', uploadResponse.status);
+                        if (!uploadResponse.ok) {
+                            const errorText = await uploadResponse.text();
+                            console.error('Cover upload error:', errorText);
+                            throw new Error('Failed to upload cover image: ' + errorText);
+                        }
+
+                        const uploadResult = await uploadResponse.json();
+                        coverImagePath = uploadResult.imagePath;
+                        console.log('✅ Cover image uploaded:', coverImagePath);
+
+                        // Step 2: Create the album
+                        console.log('🗂️ Creating album');
+                        const albumData = { title, description, coverImage: coverImagePath };
+                        console.log('Album data being sent:', albumData);
+                        
+                        const albumResponse = await this.makeRequest('/api/albums', {
+                            method: 'POST',
+                            body: JSON.stringify(albumData)
+                        });
+
+                        console.log('🗂️ Album creation response status:', albumResponse.status);
+                        if (!albumResponse || !albumResponse.ok) {
+                            const errorText = await albumResponse.text();
+                            console.error('Album creation error:', errorText);
+                            throw new Error('Failed to create album: ' + errorText);
+                        }
+
+                        const albumResult = await albumResponse.json();
+                        const albumId = albumResult.album.id;
+                        console.log('✅ Album created with ID:', albumId);
+
+                        // Step 3: Upload all staged photos to the album
+                        let uploadedCount = 0;
+                        const totalPhotos = this.stagedPhotos.length;
+                        console.log(`📷 Starting to upload ${totalPhotos} photos`);
+
+                        for (let i = 0; i < this.stagedPhotos.length; i++) {
+                            const photo = this.stagedPhotos[i];
+                            const photoFormData = new FormData();
+                            photoFormData.append('photo', photo);
+                            photoFormData.append('albumId', albumId);
+
+                            try {
+                                console.log(`📷 Uploading photo ${i + 1}/${totalPhotos}: ${photo.name}`);
+                                const photoResponse = await this.makeRequest('/api/upload', {
+                                    method: 'POST',
+                                    body: photoFormData
+                                });
+
+                                if (photoResponse && photoResponse.ok) {
+                                    uploadedCount++;
+                                    console.log(`✅ Photo uploaded: ${photo.name}`);
+                                    this.showAlert(`Uploading photos... ${uploadedCount}/${totalPhotos}`, 'info');
+                                } else {
+                                    const errorText = await photoResponse.text();
+                                    console.error(`❌ Failed to upload photo: ${photo.name}`, errorText);
+                                }
+                            } catch (error) {
+                                console.error(`❌ Error uploading photo ${photo.name}:`, error);
+                            }
+                        }
+
+                        console.log(`✅ Album creation complete! Uploaded ${uploadedCount}/${totalPhotos} photos`);
+                        this.showAlert(`🎉 Album "${title}" created successfully with ${uploadedCount} photos!`, 'success');
                     }
 
-                    const uploadResult = await uploadResponse.json();
-                    const coverImagePath = uploadResult.imagePath;
+                    // Reset form and staged photos
+                    console.log('🧹 Cleaning up form and staged photos');
+                    document.getElementById('albumForm').reset();
+                    delete form.dataset.editId;
+                    form.querySelector('button[type="submit"]').textContent = 'Create Album & Publish Photos';
+                    this.clearStagedPhotos();
+                    this.loadAlbums();
+                    console.log('✅ Album operation completed successfully');
 
-                    // Then create the album with the uploaded image path
-                    const response = await this.makeRequest('/api/albums', {
-                        method: 'POST',
-                        body: JSON.stringify({ 
-                            title, 
-                            description, 
-                            coverImage: coverImagePath 
-                        })
-                    });
-
-                    if (response && response.ok) {
-                        this.showAlert('Album created successfully!', 'success');
-                        document.getElementById('albumForm').reset();
-                        this.loadAlbums();
-                    }
                 } catch (error) {
-                    console.error('Error creating album:', error);
-                    this.showAlert('Error creating album', 'error');
+                    console.error('❌ Error with album operation:', error);
+                    this.showAlert('Error: ' + error.message, 'error');
                 }
             }
 
@@ -897,12 +1278,15 @@
 
             async handleFileUpload(files) {
                 const progressDiv = document.getElementById('uploadProgress');
-                const selectedAlbum = document.getElementById('uploadSelectAlbum').value;
-                progressDiv.classList.remove('hidden');
+                const selectedAlbum = document.getElementById('selectAlbum').value;
+                
+                if (progressDiv) {
+                    progressDiv.classList.remove('hidden');
+                }
 
                 for (let file of files) {
-                    if (file.size > 5 * 1024 * 1024) {
-                        this.showAlert(`File ${file.name} is too large (max 5MB)`, 'error');
+                    if (file.size > 100 * 1024 * 1024) { // 100MB
+                        this.showAlert(`File ${file.name} is too large (max 100MB)`, 'error');
                         continue;
                     }
 
@@ -993,7 +1377,11 @@
                         container.innerHTML = album.photos.map(photo => `
                             <div class="photo-item">
                                 <img src="${photo}" alt="Album photo">
-                                <button class="photo-remove" onclick="admin.removePhoto('${albumId}', '${photo}')">&times;</button>
+                                <div class="photo-actions">
+                                    <button class="delete-photo" onclick="admin.removePhoto('${albumId}', '${photo}')" title="Remove photo">
+                                        ×
+                                    </button>
+                                </div>
                             </div>
                         `).join('');
                     }
@@ -1021,6 +1409,7 @@
             }
 
             async deleteAlbum(id) {
+                console.log('deleteAlbum called with id:', id);
                 if (!confirm('Delete this album? This cannot be undone.')) return;
 
                 try {
@@ -1028,11 +1417,14 @@
                         method: 'DELETE'
                     });
 
+                    console.log('Delete response:', response);
+
                     if (response && response.ok) {
                         this.showAlert('Album deleted successfully!', 'success');
                         this.loadAlbums();
                     }
                 } catch (error) {
+                    console.error('Error in deleteAlbum:', error);
                     this.showAlert('Error deleting album', 'error');
                 }
             }
@@ -1089,9 +1481,41 @@
                 }, 4000);
             }
 
-            // Placeholder methods for edit functionality
-            editAlbum(id) {
-                this.showAlert('Edit functionality coming soon!', 'warning');
+            // Edit functionality for albums
+            async editAlbum(id) {
+                console.log('editAlbum called with id:', id);
+                try {
+                    const response = await fetch('/api/albums');
+                    const albums = await response.json();
+                    const album = albums.find(a => a.id === id);
+                    
+                    console.log('Found album:', album);
+                    
+                    if (album) {
+                        // Pre-populate the form with current album data
+                        document.getElementById('albumTitle').value = album.title;
+                        document.getElementById('albumDescription').value = album.description;
+                        
+                        // Switch to photos tab
+                        this.switchTab('photos');
+                        
+                        // Scroll to form
+                        document.getElementById('albumForm').scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Change the form submit to update instead of create
+                        const form = document.getElementById('albumForm');
+                        form.dataset.editId = id;
+                        
+                        // Update button text
+                        const submitBtn = form.querySelector('button[type="submit"]');
+                        submitBtn.textContent = 'Update Album';
+                        
+                        this.showAlert(`Editing album: ${album.title}`, 'info');
+                    }
+                } catch (error) {
+                    console.error('Error in editAlbum:', error);
+                    this.showAlert('Error loading album for editing', 'error');
+                }
             }
 
             editConcert(id) {
@@ -1103,8 +1527,24 @@
             }
         }
 
-        // Initialize admin panel
+        // Initialize admin panel and make it globally accessible
         const admin = new AdminPanel();
+        window.admin = admin; // Make admin accessible to onclick handlers
+        
+        // Debug function to test admin accessibility
+        window.testAdmin = function() {
+            console.log('🧪 Testing admin object accessibility:');
+            console.log('admin exists:', !!window.admin);
+            console.log('admin.editAlbum exists:', typeof window.admin?.editAlbum);
+            console.log('admin.deleteAlbum exists:', typeof window.admin?.deleteAlbum);
+            console.log('admin object:', window.admin);
+        };
+        
+        // Auto-run debug test after page loads
+        setTimeout(() => {
+            console.log('🚀 Admin panel initialized');
+            window.testAdmin();
+        }, 1000);
     </script>
 </body>
 </html>
