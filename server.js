@@ -631,6 +631,18 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
+// Handle favicon requests to prevent 404 errors
+app.get('/favicon.ico', (req, res) => {
+  // Check if we have a favicon file, otherwise return 204 (No Content)
+  const faviconPath = path.join(__dirname, 'assets', 'icons', 'favicon.ico');
+  if (fs.existsSync(faviconPath)) {
+    res.sendFile(faviconPath);
+  } else {
+    // Return 204 No Content status to indicate we don't have a favicon
+    res.status(204).end();
+  }
+});
+
 // Default route serves main site
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));

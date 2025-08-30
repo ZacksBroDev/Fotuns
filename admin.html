@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Futons Admin Panel</title>
+    <link rel="icon" type="image/png" href="/assets/icons/Futons_Logo-04.PNG">
     <style>
         * {
             margin: 0;
@@ -568,10 +569,6 @@
 
                 <div class="section">
                     <h2>Existing Albums</h2>
-                    <div style="margin-bottom: 10px;">
-                        <button onclick="window.testAdmin()" class="btn btn-secondary">🧪 Test Admin Object</button>
-                        <button onclick="console.log('Simple click test works!')" class="btn btn-secondary">🔬 Test Click</button>
-                    </div>
                     <div id="albumsList" class="items-grid"></div>
                 </div>
 
@@ -849,10 +846,46 @@
                 }
             }
 
+            /**
+             * Shows an alert message to the user
+             * @param {string} message - The message to display
+             * @param {string} type - The type of alert ('success', 'error', 'warning')
+             */
+            showAlert(message, type = 'info') {
+                console.log(`🚨 Alert (${type}):`, message);
+                
+                // Simple alert for now - could be enhanced with a custom alert system
+                alert(message);
+            }
+
             logout() {
+                console.log('🚪 Logging out...');
                 this.token = null;
                 localStorage.removeItem('adminToken');
                 this.showLoginForm();
+            }
+
+            refreshLogin() {
+                console.log('🔄 Refreshing login...');
+                this.logout();
+                this.showAlert('Please login again to refresh your session.', 'info');
+            }
+
+            async testTokenValidity() {
+                console.log('🔍 Testing token validity...');
+                try {
+                    const response = await this.makeRequest('/api/albums');
+                    if (response && response.ok) {
+                        console.log('✅ Token is valid');
+                        return true;
+                    } else {
+                        console.log('❌ Token is invalid');
+                        return false;
+                    }
+                } catch (error) {
+                    console.log('❌ Error testing token:', error);
+                    return false;
+                }
             }
 
             showLoginForm() {
@@ -886,6 +919,9 @@
             }
 
             async makeRequest(url, options = {}) {
+                console.log('🌐 makeRequest called:', { url, method: options.method || 'GET' });
+                console.log('🔑 Current token:', this.token ? `${this.token.substring(0, 20)}...` : 'No token');
+                
                 const defaultOptions = {
                     headers: {
                         'Authorization': `Bearer ${this.token}`
@@ -906,14 +942,32 @@
                     }
                 };
 
-                const response = await fetch(url, mergedOptions);
-                
-                if (response.status === 401) {
-                    this.logout();
-                    return null;
-                }
+                console.log('📡 Making request with headers:', mergedOptions.headers);
 
-                return response;
+                try {
+                    const response = await fetch(url, mergedOptions);
+                    console.log('📨 Response received:', { 
+                        status: response.status, 
+                        ok: response.ok, 
+                        statusText: response.statusText 
+                    });
+                    
+                    if (response.status === 401 || response.status === 403) {
+                        console.warn('🔒 Unauthorized/Forbidden! Token may be invalid or expired');
+                        const errorText = await response.text();
+                        console.log('🔍 Error details:', errorText);
+                        
+                        this.showAlert('Session expired. Please login again.', 'error');
+                        this.logout();
+                        return null;
+                    }
+
+                    return response;
+                } catch (error) {
+                    console.error('❌ Network error in makeRequest:', error);
+                    this.showAlert('Network error: ' + error.message, 'error');
+                    throw error;
+                }
             }
 
             async loadData() {
@@ -967,8 +1021,8 @@
                         <p><strong>Cover:</strong> ${album.coverImage || 'No cover set'}</p>
                         <p><strong>Photos:</strong> ${album.photos.length} images</p>
                         <div class="item-actions">
-                            <button class="btn btn-secondary edit-album-btn" data-album-id="${album.id}">Edit</button>
-                            <button class="btn btn-danger delete-album-btn" data-album-id="${album.id}">Delete</button>
+                            <button class="btn btn-secondary edit-album-btn" data-album-id="${album.id}" onclick="console.log('Edit clicked via onclick for ${album.id}')">Edit</button>
+                            <button class="btn btn-danger delete-album-btn" data-album-id="${album.id}" onclick="console.log('Delete clicked via onclick for ${album.id}'); window.admin && window.admin.deleteAlbum('${album.id}')">Delete</button>
                         </div>
                     </div>
                 `).join('');
@@ -984,9 +1038,13 @@
                 
                 // Add event listeners to all delete buttons
                 document.querySelectorAll('.delete-album-btn').forEach(button => {
+                    console.log('🔗 Adding delete listener to button:', button);
                     button.addEventListener('click', (e) => {
                         const albumId = e.target.getAttribute('data-album-id');
                         console.log('🗑️ Delete button clicked for album:', albumId);
+                        console.log('🔍 Event target:', e.target);
+                        console.log('🔍 Admin object available:', !!this);
+                        console.log('🔍 deleteAlbum function available:', typeof this.deleteAlbum);
                         this.deleteAlbum(albumId);
                     });
                 });
@@ -1223,7 +1281,8 @@
                     delete form.dataset.editId;
                     form.querySelector('button[type="submit"]').textContent = 'Create Album & Publish Photos';
                     this.clearStagedPhotos();
-                    this.loadAlbums();
+                    this.loadAlbums(); // Update the albums list
+                    this.loadAlbumOptions(); // Update the dropdown in "Add Photos to Existing Album" section
                     console.log('✅ Album operation completed successfully');
 
                 } catch (error) {
@@ -1341,9 +1400,11 @@
             }
 
             async loadAlbumOptions() {
+                console.log('🔄 loadAlbumOptions called - updating album dropdowns');
                 try {
                     const response = await fetch('/api/albums');
                     const albums = await response.json();
+                    console.log('📂 Albums loaded for dropdown:', albums.length, 'albums');
                     
                     // Update the album management selector
                     const select = document.getElementById('selectAlbum');
@@ -1356,8 +1417,10 @@
                         uploadSelect.innerHTML = '<option value="">Upload without adding to album</option>' +
                             albums.map(album => `<option value="${album.id}">${album.title}</option>`).join('');
                     }
+                    
+                    console.log('✅ Album dropdowns updated successfully');
                 } catch (error) {
-                    console.error('Error loading album options:', error);
+                    console.error('❌ Error loading album options:', error);
                 }
             }
 
@@ -1409,23 +1472,62 @@
             }
 
             async deleteAlbum(id) {
-                console.log('deleteAlbum called with id:', id);
-                if (!confirm('Delete this album? This cannot be undone.')) return;
+                console.log('🗑️ deleteAlbum called with id:', id);
+                console.log('🔍 Current token:', this.token ? 'Token exists' : 'No token');
+                
+                console.log('⚠️ About to show confirmation dialog...');
+                const userConfirmed = confirm('Delete this album? This cannot be undone.');
+                console.log('⚠️ User confirmation result:', userConfirmed);
+                
+                if (!userConfirmed) {
+                    console.log('❌ User cancelled deletion');
+                    return;
+                }
+
+                console.log('✅ User confirmed deletion, proceeding...');
 
                 try {
+                    console.log('🌐 Making DELETE request to:', `/api/albums/${id}`);
+                    
                     const response = await this.makeRequest(`/api/albums/${id}`, {
                         method: 'DELETE'
                     });
 
-                    console.log('Delete response:', response);
+                    console.log('📡 Delete response received:', {
+                        status: response?.status,
+                        ok: response?.ok,
+                        statusText: response?.statusText
+                    });
 
                     if (response && response.ok) {
+                        console.log('✅ Delete successful, updating UI...');
                         this.showAlert('Album deleted successfully!', 'success');
-                        this.loadAlbums();
+                        
+                        console.log('🔄 Calling loadAlbums...');
+                        await this.loadAlbums(); // Update the albums list
+                        
+                        console.log('🔄 Calling loadAlbumOptions...');
+                        await this.loadAlbumOptions(); // Update the dropdown in "Add Photos to Existing Album" section
+                        
+                        console.log('✅ UI updated successfully');
+                    } else {
+                        console.log('❌ Delete failed, response not ok');
+                        const errorText = await response?.text();
+                        console.log('Error response text:', errorText);
+                        
+                        // Check if it's a token issue
+                        if (response?.status === 403 || (errorText && errorText.includes('Invalid token'))) {
+                            console.log('🔒 Token is invalid - forcing refresh login');
+                            this.showAlert('Your session has expired. Please login again.', 'error');
+                            this.logout();
+                            return;
+                        }
+                        
+                        this.showAlert('Failed to delete album: ' + (errorText || 'Unknown error'), 'error');
                     }
                 } catch (error) {
-                    console.error('Error in deleteAlbum:', error);
-                    this.showAlert('Error deleting album', 'error');
+                    console.error('❌ Error in deleteAlbum:', error);
+                    this.showAlert('Error deleting album: ' + error.message, 'error');
                 }
             }
 
@@ -1528,8 +1630,15 @@
         }
 
         // Initialize admin panel and make it globally accessible
-        const admin = new AdminPanel();
-        window.admin = admin; // Make admin accessible to onclick handlers
+        try {
+            console.log('🔧 Creating AdminPanel instance...');
+            const admin = new AdminPanel();
+            window.admin = admin; // Make admin accessible to onclick handlers
+            console.log('✅ AdminPanel created successfully:', admin);
+        } catch (error) {
+            console.error('❌ Error creating AdminPanel:', error);
+            window.admin = null;
+        }
         
         // Debug function to test admin accessibility
         window.testAdmin = function() {
@@ -1540,10 +1649,168 @@
             console.log('admin object:', window.admin);
         };
         
+        // Comprehensive diagnostic function
+        window.runDiagnostics = function() {
+            console.log('🔍 Running comprehensive diagnostics...');
+            
+            // Test 1: Admin object
+            console.log('1. Admin object test:');
+            console.log('   - admin exists:', !!window.admin);
+            console.log('   - admin.editAlbum:', typeof window.admin?.editAlbum);
+            console.log('   - admin.deleteAlbum:', typeof window.admin?.deleteAlbum);
+            
+            // Test 2: DOM elements
+            console.log('2. DOM elements test:');
+            console.log('   - albumsList exists:', !!document.getElementById('albumsList'));
+            console.log('   - selectAlbum exists:', !!document.getElementById('selectAlbum'));
+            
+            // Test 3: Check for edit/delete buttons
+            const editButtons = document.querySelectorAll('.edit-album-btn');
+            const deleteButtons = document.querySelectorAll('.delete-album-btn');
+            console.log('3. Button test:');
+            console.log('   - Edit buttons found:', editButtons.length);
+            console.log('   - Delete buttons found:', deleteButtons.length);
+            
+            // Test 4: Try to trigger edit manually
+            if (editButtons.length > 0) {
+                console.log('4. Manual trigger test:');
+                const firstEdit = editButtons[0];
+                const albumId = firstEdit.getAttribute('data-album-id');
+                console.log('   - First edit button album ID:', albumId);
+                console.log('   - Attempting manual trigger...');
+                if (window.admin && window.admin.editAlbum) {
+                    window.admin.editAlbum(albumId);
+                }
+            }
+            
+            // Test 5: Check dropdowns
+            const selectAlbum = document.getElementById('selectAlbum');
+            if (selectAlbum) {
+                console.log('5. Dropdown test:');
+                console.log('   - Options count:', selectAlbum.options.length);
+                console.log('   - Options:', Array.from(selectAlbum.options).map(o => o.text));
+            }
+        };
+        
+        // Test DELETE API directly
+        window.testDeleteAPI = async function() {
+            console.log('🧪 Testing DELETE API directly...');
+            
+            if (!window.admin) {
+                console.error('❌ Admin object not available');
+                return;
+            }
+            
+            // First test token validity
+            console.log('🔑 Testing token validity...');
+            const tokenValid = await window.admin.testTokenValidity();
+            if (!tokenValid) {
+                console.error('❌ Token is invalid! Please refresh login.');
+                alert('Token is invalid! Click "🔄 Refresh Login" to login again.');
+                return;
+            }
+            
+            try {
+                // First, get albums to see what's available
+                console.log('📋 Fetching albums...');
+                const albumsResponse = await fetch('/api/albums');
+                const albums = await albumsResponse.json();
+                console.log('📂 Available albums:', albums);
+                
+                if (albums.length === 0) {
+                    console.log('ℹ️ No albums to delete');
+                    return;
+                }
+                
+                const albumToTest = albums[0];
+                console.log('🎯 Testing deletion of album:', albumToTest);
+                
+                // Ask for confirmation since this will actually delete
+                if (!confirm(`This will actually DELETE the album "${albumToTest.title}". Are you sure?`)) {
+                    console.log('❌ User cancelled test deletion');
+                    return;
+                }
+                
+                // Test the makeRequest function directly
+                console.log('🔧 Testing makeRequest function...');
+                const testResponse = await window.admin.makeRequest(`/api/albums/${albumToTest.id}`, {
+                    method: 'DELETE'
+                });
+                
+                console.log('📡 Test DELETE response:', {
+                    status: testResponse?.status,
+                    ok: testResponse?.ok,
+                    statusText: testResponse?.statusText
+                });
+                
+                if (testResponse && testResponse.ok) {
+                    console.log('✅ DELETE API test successful!');
+                    const result = await testResponse.json();
+                    console.log('📄 Response data:', result);
+                    
+                    // Refresh the albums list
+                    await window.admin.loadAlbums();
+                    await window.admin.loadAlbumOptions();
+                } else {
+                    console.log('❌ DELETE API test failed');
+                    const errorText = await testResponse?.text();
+                    console.log('📄 Error response:', errorText);
+                }
+                
+            } catch (error) {
+                console.error('❌ Error testing DELETE API:', error);
+            }
+        };
+        
+        // Direct delete test - bypasses all event listeners
+        window.directDeleteTest = async function() {
+            console.log('⚡ Direct Delete Test - bypassing all event listeners');
+            
+            if (!window.admin) {
+                console.error('❌ Admin object not available');
+                alert('Admin object not available!');
+                return;
+            }
+            
+            try {
+                // Get albums first
+                console.log('📋 Fetching albums directly...');
+                const response = await fetch('/api/albums');
+                const albums = await response.json();
+                console.log('📂 Available albums:', albums);
+                
+                if (albums.length === 0) {
+                    alert('No albums to delete!');
+                    return;
+                }
+                
+                const albumToDelete = albums[0];
+                console.log('🎯 Will delete:', albumToDelete);
+                
+                if (!confirm(`DIRECT DELETE TEST: This will actually delete "${albumToDelete.title}". Continue?`)) {
+                    console.log('❌ User cancelled');
+                    return;
+                }
+                
+                // Call deleteAlbum directly
+                console.log('⚡ Calling admin.deleteAlbum directly...');
+                await window.admin.deleteAlbum(albumToDelete.id);
+                console.log('✅ Direct delete call completed');
+                
+            } catch (error) {
+                console.error('❌ Error in direct delete test:', error);
+                alert('Error: ' + error.message);
+            }
+        };
+        
         // Auto-run debug test after page loads
         setTimeout(() => {
             console.log('🚀 Admin panel initialized');
             window.testAdmin();
+            setTimeout(() => {
+                console.log('🔍 Running auto-diagnostics in 2 seconds...');
+                window.runDiagnostics();
+            }, 2000);
         }, 1000);
     </script>
 </body>
