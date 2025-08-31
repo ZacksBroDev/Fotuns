@@ -593,6 +593,19 @@ app.post('/api/upload', authenticateToken, upload.single('photo'), (req, res) =>
   }
   
   const imagePath = `/assets/img/${req.file.filename}`;
+  
+  // If albumId is provided, add the photo to that album
+  if (req.body.albumId) {
+    const albums = readDataFile(ALBUMS_FILE);
+    const albumIndex = albums.findIndex(a => a.id === req.body.albumId);
+    
+    if (albumIndex !== -1) {
+      albums[albumIndex].photos.push(imagePath);
+      writeDataFile(ALBUMS_FILE, albums);
+      console.log(`✅ Photo added to album: ${albums[albumIndex].title}`);
+    }
+  }
+  
   res.json({ imagePath });
 });
 
@@ -631,16 +644,14 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
+// Serve simple admin panel for testing
+app.get('/admin/simple', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin_simple.html'));
+});
+
 // Handle favicon requests to prevent 404 errors
 app.get('/favicon.ico', (req, res) => {
-  // Check if we have a favicon file, otherwise return 204 (No Content)
-  const faviconPath = path.join(__dirname, 'assets', 'icons', 'favicon.ico');
-  if (fs.existsSync(faviconPath)) {
-    res.sendFile(faviconPath);
-  } else {
-    // Return 204 No Content status to indicate we don't have a favicon
-    res.status(204).end();
-  }
+  res.status(204).end();
 });
 
 // Default route serves main site

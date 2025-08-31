@@ -1237,7 +1237,7 @@
                         }
 
                         const albumResult = await albumResponse.json();
-                        const albumId = albumResult.album.id;
+                        const albumId = albumResult.id; // Fixed: server returns album directly, not wrapped in 'album' property
                         console.log('✅ Album created with ID:', albumId);
 
                         // Step 3: Upload all staged photos to the album
