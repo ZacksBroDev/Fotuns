@@ -184,13 +184,57 @@ I'll Be Attending This Event</textarea
         </div>
         <div class="section" id="gallery">
           <h3>Gallery</h3>
-          <div class="gallery-grid">
-            <img src="/assets/img/IMG_1941.jpg" alt="The Futons Live Performance" onclick="openLightbox(this)" />
-            <img src="/assets/img/IMG_1896.jpg" alt="Lion's Lair 08-14-2025" onclick="openLightbox(this)" />
-            <img src="/assets/img/IMG_1901.jpg" alt="Lion's Lair 08-14-2025" onclick="openLightbox(this)" />
-            <img src="/assets/img/IMG_1939.jpg" alt="The Futons Performance" onclick="openLightbox(this)" />
-            <img src="/assets/img/IMG_1943.jpg" alt="Band Photo" onclick="openLightbox(this)" />
-            <img src="/assets/img/IMG_1956.jpg" alt="The Futons Live" onclick="openLightbox(this)" />
+          
+          <!-- Album Cover View (Compressed) -->
+          <div class="albums-grid">
+            <!-- Lion's Lair Album -->
+            <div class="album-cover" data-album="lions-lair-2025">
+              <div class="album-cover-image">
+                <img src="/assets/img/IMG_1879.jpg" alt="Lion's Lair Performance - Aug 2025" />
+                <div class="album-overlay">
+                  <div class="album-info">
+                    <h4>Lion's Lair - Aug 2025</h4>
+                    <p>20 Photos</p>
+                    <button class="view-album-btn">View Album</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Future albums can be added here -->
+          </div>
+          
+          <!-- Album Detail Views -->
+          <div class="album-detail" id="album-detail-lions-lair-2025" style="display: none;">
+            <div class="album-detail-header">
+              <button class="back-to-albums" onclick="backToAlbums()">← Back to Albums</button>
+              <h4>Lion's Lair Performance - August 14, 2025</h4>
+              <p>Our epic performance at Lion's Lair! Amazing crowd and energy.</p>
+            </div>
+            
+            <!-- Thumbnail Grid -->
+            <div class="thumbnail-grid">
+              <img src="/assets/img/IMG_1879.jpg" alt="Lion's Lair 08-14-2025 - Performance" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1881.jpg" alt="Lion's Lair 08-14-2025 - Stage Setup" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1896.jpg" alt="Lion's Lair 08-14-2025 - Crowd Energy" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1897.jpg" alt="Lion's Lair 08-14-2025 - Guitar Solo" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1898.jpg" alt="Lion's Lair 08-14-2025 - Band Unity" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1899.jpg" alt="Lion's Lair 08-14-2025 - Live Action" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1901.jpg" alt="Lion's Lair 08-14-2025 - Audience" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1904.jpg" alt="Lion's Lair 08-14-2025 - Bass Drop" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1911.jpg" alt="Lion's Lair 08-14-2025 - Spotlight" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1912.jpg" alt="Lion's Lair 08-14-2025 - Drums" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1914.jpg" alt="Lion's Lair 08-14-2025 - Vocals" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1916.jpg" alt="Lion's Lair 08-14-2025 - Finale" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1917.jpg" alt="Lion's Lair 08-14-2025 - Thank You" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1928.jpg" alt="Lion's Lair 08-14-2025 - Backstage" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1933.jpg" alt="Lion's Lair 08-14-2025 - Setup" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1939.jpg" alt="Lion's Lair 08-14-2025 - Sound Check" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1941.jpg" alt="Lion's Lair 08-14-2025 - Pre-Show" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1943.jpg" alt="Lion's Lair 08-14-2025 - Equipment" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1951.jpg" alt="Lion's Lair 08-14-2025 - Venue" onclick="openLightbox(this, 'lions-lair-2025')" />
+              <img src="/assets/img/IMG_1956.jpg" alt="Lion's Lair 08-14-2025 - Memories" onclick="openLightbox(this, 'lions-lair-2025')" />
+            </div>
           </div>
         </div>
 
@@ -267,33 +311,71 @@ I'll Be Attending This Event</textarea
     </footer>
 
     <script>
-      // Simple lightbox functionality
+      // Album and lightbox functionality
       let currentImageIndex = 0;
       let galleryImages = [];
+      let currentAlbum = '';
 
       // Initialize gallery when page loads
       document.addEventListener("DOMContentLoaded", function () {
-        galleryImages = Array.from(document.querySelectorAll('.gallery-grid img'));
+        updateGalleryImages();
+        initializeAlbumCovers();
       });
 
+      function updateGalleryImages() {
+        // Get all visible images from the current active album detail view
+        const activeAlbumDetail = document.querySelector('.album-detail[style*="block"]');
+        if (activeAlbumDetail) {
+          galleryImages = Array.from(activeAlbumDetail.querySelectorAll('.thumbnail-grid img'));
+        }
+      }
+
+      function initializeAlbumCovers() {
+        // Add click event listeners to album covers
+        document.querySelectorAll('.album-cover').forEach(cover => {
+          cover.addEventListener('click', function() {
+            const albumId = this.getAttribute('data-album');
+            viewAlbum(albumId);
+          });
+        });
+
+        // Add click event listeners to "View Album" buttons
+        document.querySelectorAll('.view-album-btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const albumId = this.closest('.album-cover').getAttribute('data-album');
+            viewAlbum(albumId);
+          });
+        });
+      }
+
       // Open lightbox with clicked image
-      function openLightbox(img) {
+      function openLightbox(img, albumId) {
+        // Set current album context
+        currentAlbum = albumId;
+        updateGalleryImages();
+        
         const lightbox = document.getElementById("lightbox");
         const lightboxImg = document.getElementById("lightbox-img");
         const lightboxCaption = document.getElementById("lightbox-caption");
 
+        // Find the index of clicked image
         currentImageIndex = galleryImages.indexOf(img);
+
+        // Set the image and caption
         lightboxImg.src = img.src;
         lightboxCaption.textContent = img.alt;
+
+        // Show the lightbox
         lightbox.style.display = "block";
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = "hidden"; // Prevent background scrolling
       }
 
       // Close lightbox
       function closeLightbox() {
         const lightbox = document.getElementById("lightbox");
         lightbox.style.display = "none";
-        document.body.style.overflow = "auto";
+        document.body.style.overflow = "auto"; // Restore scrolling
       }
 
       // Navigate to next image
@@ -316,6 +398,28 @@ I'll Be Attending This Event</textarea
 
         lightboxImg.src = currentImg.src;
         lightboxCaption.textContent = currentImg.alt;
+      }
+
+      // Album Cover functionality
+      function viewAlbum(albumId) {
+        // Hide album covers grid
+        document.querySelector('.albums-grid').style.display = 'none';
+        
+        // Show album detail view
+        document.getElementById(`album-detail-${albumId}`).style.display = 'block';
+        
+        // Update gallery images for lightbox
+        updateGalleryImages();
+      }
+
+      function backToAlbums() {
+        // Hide all album detail views
+        document.querySelectorAll('.album-detail').forEach(detail => {
+          detail.style.display = 'none';
+        });
+        
+        // Show album covers grid
+        document.querySelector('.albums-grid').style.display = 'grid';
       }
 
       // Keyboard navigation
