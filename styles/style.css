@@ -201,13 +201,13 @@ section {
 #title-img {
   width: 450px;
   height: auto;
-  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
+  filter: brightness(0) invert(1) drop-shadow(0 15px 30px rgba(0,0,0,0.3));
   transition: all 0.4s ease;
   animation: float 3s ease-in-out infinite;
 }
 #title-img:hover {
   transform: scale(1.05);
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+  filter: brightness(0) invert(1) drop-shadow(0 20px 40px rgba(0,0,0,0.4));
 }
 
 @keyframes float {
@@ -673,66 +673,6 @@ header img:hover {
 .cont:hover .info h3,
 .cont:hover .info p {
   transform: translateY(0);
-}
-
-/* Bottom styles */
-
-
-/* Login styles */
-.login{
-  grid-area: login;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  background: var(--white);
-  padding: 3rem 2rem;
-  border-radius: 25px;
-  box-shadow: var(--shadow-medium);
-  border: 1px solid var(--gray-medium);
-  transition: all 0.3s ease;
-}
-.login:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-strong);
-}
-.login h2 {
-  color: var(--accent);
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-.login p {
-  color: var(--black);
-  text-align: center;
-  line-height: 1.6;
-}
-.login input {
-  font-size: 1.1rem;
-  margin: auto;
-  margin-bottom: 1rem;
-  background-color: var(--gray-light);
-  color: var(--black);
-  padding: 1rem;
-  border: 2px solid var(--gray-medium);
-  border-radius: 15px;
-  margin-top: 1rem;
-  width: 100%;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-.login input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
-  transform: translateY(-2px);
-}
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
 }
 
 /* Contact Form Styles */
@@ -1800,31 +1740,29 @@ body.menu-open {
 
 /* Compressed Album Cover Styles */
 .albums-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
   margin: 2rem 0;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
   padding: 0 1rem;
 }
 
 .album-cover {
   cursor: pointer;
-  border-radius: 15px;
+  border-radius: 20px;
   overflow: hidden;
   position: relative;
   aspect-ratio: 1;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease;
-  max-width: 180px;
-  width: 100%;
+  width: 250px;
+  height: 250px;
 }
 
 .album-cover:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 15px 35px rgba(108, 92, 231, 0.4);
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(108, 92, 231, 0.4);
 }
 
 .album-cover-image {
@@ -1978,15 +1916,13 @@ body.menu-open {
 /* Mobile responsive */
 @media (max-width: 768px) {
   .albums-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin: 1rem;
-    max-width: 400px;
+    gap: 1.5rem;
+    margin: 1rem 0;
   }
   
   .album-cover {
-    aspect-ratio: 1;
-    max-width: none;
+    width: 200px;
+    height: 200px;
   }
   
   .thumbnail-grid {
@@ -2008,24 +1944,24 @@ body.menu-open {
   }
   
   .album-info h4 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 480px) {
   .albums-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
-    margin: 0.5rem;
-    max-width: 300px;
+    gap: 1rem;
+    margin: 0.5rem 0;
   }
   
   .album-cover {
-    border-radius: 12px;
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
   }
   
   .album-info h4 {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   
   .album-info p {
