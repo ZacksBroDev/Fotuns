@@ -178,7 +178,8 @@ I'll Be Attending This Event</textarea
         <div class="section" id="gallery">
           <h3>Gallery</h3>
           
-          
+          <!-- Album Cover View (Compressed) -->
+          <div class="albums-grid">
             <!-- Lion's Lair Album -->
             <div class="album-cover" data-album="lions-lair-2025">
               <div class="album-cover-image">
@@ -193,6 +194,7 @@ I'll Be Attending This Event</textarea
               </div>
             </div>
             <!-- More album covers can be added here -->
+          </div>
           
           <!-- Album Detail Views -->
           <div class="album-detail" id="album-detail-lions-lair-2025" style="display: none;">
@@ -409,7 +411,7 @@ I'll Be Attending This Event</textarea
         });
         
         // Show album covers grid
-        document.querySelector('.albums-grid').style.display = 'grid';
+        document.querySelector('.albums-grid').style.display = 'flex';
       }
 
       // Keyboard navigation
