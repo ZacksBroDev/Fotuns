@@ -423,11 +423,81 @@ I'll Be Attending This Event</textarea>
 
     // Initialize gallery when page loads
     document.addEventListener("DOMContentLoaded", function () {
+      optimizeImageLoading();
       updateGalleryImages();
       initializeAlbumCovers();
+      preloadCriticalImages();
     });
 
-    function updateGalleryImages() {
+    // Image loading optimizations
+    function optimizeImageLoading() {
+      // Add lazy loading and optimization attributes to all thumbnail images
+      const thumbnailImages = document.querySelectorAll('.thumbnail-grid img, .album-cover img');
+
+      thumbnailImages.forEach((img, index) => {
+        // Add lazy loading for images not immediately visible
+        if (index > 6) { // First 6 images load immediately
+          img.setAttribute('loading', 'lazy');
+        }
+
+        // Add async decoding for better performance
+        img.setAttribute('decoding', 'async');
+
+        // Add placeholder while loading
+        img.addEventListener('load', function () {
+          this.style.opacity = '1';
+        });
+
+        // Handle loading errors
+        img.addEventListener('error', function () {
+          this.style.opacity = '0.5';
+          console.warn('Failed to load image:', this.src);
+        });
+      });
+
+      // Preload images when album is about to be viewed
+      document.querySelectorAll('.album-cover').forEach(cover => {
+        cover.addEventListener('mouseenter', function () {
+          const albumId = this.getAttribute('data-album');
+          preloadAlbumImages(albumId);
+        });
+      });
+    }
+
+    // Preload critical images
+    function preloadCriticalImages() {
+      // Preload the first few images of each album
+      const criticalImages = [
+        '/assets/img/LionsDen/IMG_1879.jpg',
+        '/assets/img/Concert2/1-DSCF5279.jpg',
+        '/assets/img/IMG_1879.jpg'
+      ];
+
+      criticalImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+
+    // Preload album images when user hovers over album
+    function preloadAlbumImages(albumId) {
+      const albumDetail = document.getElementById(`album-detail-${albumId}`);
+      if (albumDetail && !albumDetail.dataset.preloaded) {
+        const images = albumDetail.querySelectorAll('.thumbnail-grid img');
+        let loadedCount = 0;
+        const maxPreload = 10; // Preload first 10 images
+
+        images.forEach((img, index) => {
+          if (index < maxPreload && loadedCount < maxPreload) {
+            const preloadImg = new Image();
+            preloadImg.src = img.src;
+            loadedCount++;
+          }
+        });
+
+        albumDetail.dataset.preloaded = 'true';
+      }
+    } function updateGalleryImages() {
       // Get all visible images from the current active album detail view
       const activeAlbumDetail = document.querySelector(
         '.album-detail[style*="block"]'

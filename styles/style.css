@@ -87,6 +87,21 @@ body {
 }
 
 /**
+ * Global image performance optimizations
+ * Improves loading speed and rendering performance
+ */
+img {
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
  * Home section with fixed background attachment
  * Creates parallax effect for better visual engagement
  */
@@ -2102,6 +2117,14 @@ body.menu-open {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+  /* Performance optimizations */
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .thumbnail-grid img:hover {
