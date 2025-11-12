@@ -334,7 +334,7 @@ header img:hover {
 /* Hero Styles */
 .hero {
   background: var(--gradient-hero);
-  background-image: url('/assets/img/IMG_1941.jpg');
+  background-image: url('/assets/img/LionsDen/IMG_1941.jpg');
   background-size: cover;
   background-position: center;
   color: var(--white);
@@ -617,6 +617,7 @@ header img:hover {
   position: relative;
   width: 300px;
   height: 300px;
+  border-radius: 20px;
   box-shadow: var(--shadow-strong);
   transition: all 0.4s ease;
 }
@@ -627,6 +628,7 @@ header img:hover {
 .cont img {
   width: 100%;
   height: 100%;
+  border-radius: 20px;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
@@ -638,6 +640,7 @@ header img:hover {
   position: absolute;
   width: 100%;
   height: 100%;
+  border-radius: 20px;
   top: 0px;
   left: 0px;
   color: var(--white);
