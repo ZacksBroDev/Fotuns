@@ -233,7 +233,6 @@ section {
 
 #title-btn {
   padding: 1rem 2.5rem;
-  margin-top: 2rem;
   display: inline-block;
   text-align: center;
   text-transform: uppercase;
@@ -417,6 +416,27 @@ header img:hover {
   }
 }
 
+@media (max-width: 786px) {
+  body{
+    line-height: normal;
+  }
+  .hero{
+    padding: 2rem 1rem;
+  }
+  #title-img{
+    width: 250px;
+  }
+  .hero-content h2 {
+    font-size: 1rem;
+  }
+  .section {
+    padding: 1rem .5rem;
+    margin: 0;
+  }
+  #title-btn{
+    margin-top: 1rem;
+  }
+}
 
 /* Music Styles */
 #music {
@@ -508,7 +528,20 @@ header img:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
 }
-
+@media (max-width: 786px) {
+  #music{
+    padding: 2rem 1rem;
+  }
+  .section {
+    padding: 1rem .5rem;
+    margin: 0;
+  }
+  .music-list {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+}
 
 /* Concerts styles */
 .concerts {
@@ -2000,6 +2033,10 @@ body.menu-open {
   opacity: 1;
 }
 
+.album-info{
+  width: 100%;
+  height: 100%;
+}
 .album-info h4 {
   color: white;
   font-size: 1.5rem;
@@ -2009,7 +2046,6 @@ body.menu-open {
 
 .album-info p {
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 1rem;
   font-size: 0.9rem;
 }
 
@@ -2141,9 +2177,16 @@ body.menu-open {
     padding: 1.5rem;
   }
 
-  .album-info h4 {
-    font-size: 1.3rem;
+
+  #gallery .album-info h4 {
+    font-size: 1rem;
+    margin-top: .5rem;
   }
+  #about .album-info p{
+    margin-bottom: .5rem;
+    font-size: 0.8rem;
+  }
+
 }
 
 @media (max-width: 480px) {
