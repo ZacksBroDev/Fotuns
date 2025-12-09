@@ -147,7 +147,7 @@ footer {
   max-width: 1200px;
   height: auto;
   margin: 3rem auto;
-  padding: 3rem 2rem;
+  padding: 1rem;
   border-radius: 25px;
   text-align: center;
   box-shadow: var(--shadow-medium);
@@ -245,6 +245,7 @@ section {
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
+  margin: 0px;
 }
 
 #title-btn:before {
@@ -268,6 +269,7 @@ section {
 }
 
 .wrapper {
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -390,7 +392,6 @@ header img:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 30vh;
   height: 100%;
   position: relative;
   z-index: 2;
@@ -478,6 +479,7 @@ header img:hover {
   align-items: center;
   gap: 2rem;
   perspective: 1000px;
+  border-radius: 20px !important;
 }
 
 .music-item {
@@ -684,6 +686,9 @@ header img:hover {
 }
 
 /* About styles */
+#about-content {
+  border-radius: 20px;
+}
 #about {
   background: var(--gradient-secondary);
   color: var(--white);
@@ -786,7 +791,11 @@ header img:hover {
 }
 
 /* Contact Form Styles */
+#bottom {
+  width: 100%;
+}
 .contact {
+  width: 80%;
   padding: 3rem 2rem;
   border-radius: 20px;
   background: var(--white);
@@ -814,6 +823,7 @@ header img:hover {
   border-radius: 25px;
   cursor: pointer;
   min-width: 120px;
+  min-height: 20px;
   margin: auto;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -906,6 +916,7 @@ textarea:focus {
 
 #submit {
   grid-area: submit;
+  min-height: 40px;
 }
 
 .contact-form {
